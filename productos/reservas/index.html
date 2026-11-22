@@ -19,16 +19,41 @@
       theme: {
         extend: {
           colors: {
-            adobe: { 50: '#fdf5f3', 500: '#b03e29', 600: '#943221', 700: '#7a2a1a' },
-            maiz: { 50: '#fdf9f0', 500: '#d49a3a', 600: '#b07e2a' },
-            huerto: { 500: '#4a6b4a', 600: '#3d593d' },
-            cal: { 50: '#fdfbf7', 100: '#f5eee4' },
-            ink: { 900: '#2b1f1a', 700: '#4a3f39' }
+            adobe: {
+              50:  'rgb(var(--adobe-50) / <alpha-value>)',
+              100: 'rgb(var(--adobe-100) / <alpha-value>)',
+              500: 'rgb(var(--adobe-500) / <alpha-value>)',
+              600: 'rgb(var(--adobe-600) / <alpha-value>)',
+              700: 'rgb(var(--adobe-700) / <alpha-value>)',
+            },
+            maiz: {
+              50:  'rgb(var(--maiz-50) / <alpha-value>)',
+              100: 'rgb(var(--maiz-100) / <alpha-value>)',
+              500: 'rgb(var(--maiz-500) / <alpha-value>)',
+              600: 'rgb(var(--maiz-600) / <alpha-value>)',
+            },
+            huerto: {
+              50:  'rgb(var(--huerto-50) / <alpha-value>)',
+              100: 'rgb(var(--huerto-100) / <alpha-value>)',
+              500: 'rgb(var(--huerto-500) / <alpha-value>)',
+              600: 'rgb(var(--huerto-600) / <alpha-value>)',
+            },
+            cal: {
+              50:  'rgb(var(--cal-50) / <alpha-value>)',
+              100: 'rgb(var(--cal-100) / <alpha-value>)',
+              200: 'rgb(var(--cal-200) / <alpha-value>)',
+            },
+            ink: {
+              600: 'rgb(var(--ink-600) / <alpha-value>)',
+              700: 'rgb(var(--ink-700) / <alpha-value>)',
+              800: 'rgb(var(--ink-800) / <alpha-value>)',
+              900: 'rgb(var(--ink-900) / <alpha-value>)',
+            },
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Playfair Display', 'serif'],
-            serif: ['Lora', 'serif'],
+            sans: ['var(--font-sans)'],
+            display: ['var(--font-display)'],
+            serif: ['var(--font-serif)'],
           },
         },
       },
@@ -43,76 +68,123 @@
   <!-- ========================================== -->
   <!-- NAVBAR -->
   <!-- ========================================== -->
-  <header class="absolute top-0 w-full z-50">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-      
-      <a href="index.html" class="flex items-center gap-3 group">
-        <div class="h-11 w-11 rounded-full bg-adobe-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-          <svg class="h-6 w-6 text-cal-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-display text-xl font-bold text-cal-50 leading-tight tracking-wide drop-shadow">El Rinconcito</span>
-          <span class="font-serif italic text-maiz-500 text-sm leading-tight drop-shadow">Cusqueño</span>
-        </div>
-      </a>
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="h-24 flex items-center justify-between">
 
-        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-cal-50">
-        <a href="#platos" class="hover:text-maiz-500 transition-colors">Nuestra Carta</a>
-        <a href="#espacios" class="hover:text-maiz-500 transition-colors">Espacios</a>
-        <a href="#nosotros" class="hover:text-maiz-500 transition-colors">Nosotros</a>
-        
-        <!-- Botón Reservar -->
-        <a href="#reservas" class="rounded-full bg-maiz-500 text-ink-900 px-6 py-2.5 font-bold hover:bg-maiz-600 hover:text-cal-50 transition-all shadow-lg hover:-translate-y-0.5 ml-2">
-          Reservar Mesa
+        <a href="index.html" class="flex items-center gap-3 group" aria-label="El Rinconcito Cusqueño — inicio">
+          <div class="h-11 w-11 rounded-full bg-adobe-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+            <svg class="h-6 w-6 text-cal-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display text-xl font-bold text-cal-50 leading-tight tracking-wide drop-shadow">El Rinconcito</span>
+            <span class="font-serif italic text-maiz-500 text-sm leading-tight drop-shadow">Cusqueño</span>
+          </div>
         </a>
 
-        <!-- NUEVO: Botón de Login (Acceso Staff) -->
-        <a href="admin.html" title="Acceso para trabajadores" class="group flex items-center justify-center h-10 w-10 rounded-full border border-cal-50/30 text-cal-50 hover:bg-white/20 hover:border-white transition-all">
-          <!-- Icono de puerta/salida (como el que enviaste) -->
-          <svg class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-          </svg>
-        </a>
-      </nav>
-      
+        <!-- Menú desktop -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Navegación principal">
+          <a href="#platos" class="rn-nav-link">Nuestra Carta</a>
+          <a href="#espacios" class="rn-nav-link">Espacios</a>
+          <a href="#nosotros" class="rn-nav-link">Nosotros</a>
+
+          <!-- Botón Reservar -->
+          <a href="#reservas" class="rounded-full bg-maiz-500 text-ink-900 px-6 py-2.5 font-bold hover:bg-maiz-600 hover:text-cal-50 transition-all shadow-lg hover:-translate-y-0.5 ml-2">
+            Reservar Mesa
+          </a>
+
+          <!-- Acceso Staff -->
+          <a href="admin.html" title="Acceso para trabajadores" aria-label="Acceso para trabajadores" class="group flex items-center justify-center h-11 w-11 rounded-full border border-cal-50/30 text-cal-50 hover:bg-white/20 hover:border-white transition-all">
+            <svg class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+          </a>
+        </nav>
+
+        <!-- Acciones móviles: acceso staff + menú -->
+        <div class="flex items-center gap-2 md:hidden">
+          <a href="admin.html" title="Acceso para trabajadores" aria-label="Acceso para trabajadores" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cal-50/30 text-cal-50 hover:bg-white/20 hover:border-white transition-all">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+          </a>
+
+          <button
+            id="menu-toggle"
+            type="button"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-cal-50 hover:bg-white/10 transition-colors"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            aria-label="Abrir menú"
+          >
+            <svg id="icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+            </svg>
+            <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Menú móvil desplegable -->
+      <div id="mobile-menu" class="md:hidden hidden">
+        <nav aria-label="Navegación móvil" class="border-t border-cal-50/15 py-4">
+          <ul class="space-y-1">
+            <li><a href="#platos" class="rn-mobile-link">Nuestra Carta</a></li>
+            <li><a href="#espacios" class="rn-mobile-link">Espacios</a></li>
+            <li><a href="#nosotros" class="rn-mobile-link">Nosotros</a></li>
+            <li class="pt-3">
+              <a href="#reservas" class="flex items-center justify-center w-full rounded-full bg-maiz-500 text-ink-900 px-6 py-3 font-bold hover:bg-maiz-600 hover:text-cal-50 transition-colors">
+                Reservar Mesa
+              </a>
+            </li>
+            <li><a href="admin.html" class="rn-mobile-link">Acceso Staff</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
      <!-- ========================================== -->
   <!-- HERO (Portada) -->
   <!-- ========================================== -->
-  <section class="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden bg-[#2b1f1a]">
-    
-    <!-- Fondo con Imagen y Overlay -->
-    <div class="absolute inset-0 -z-10">
-      <!-- Tu imagen local (que ya sabemos que carga bien) -->
-      <img src="/productos/reservas/img/cusco-view.jpg" alt="Vista de la ciudad del Cusco" class="w-full h-full object-cover object-center" />
-      
-      <!-- Overlay oscuro con CSS PURO (nada de Tailwind aquí) -->
-      <div class="absolute inset-0" style="background: linear-gradient(to top, #2b1f1a 0%, rgba(43, 31, 26, 0.8) 50%, rgba(43, 31, 26, 0.4) 100%);"></div>
+  <section id="hero" aria-labelledby="hero-title" class="rn-hero relative isolate min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-ink-900">
+
+    <!-- Fondo: imagen local + scrim (CSS del módulo) -->
+    <div class="rn-hero-media absolute inset-0 -z-10" aria-hidden="true">
+      <img src="img/cusco-view.jpg" alt="" width="1180" height="1333" fetchpriority="high" decoding="async" style="object-position: 50% 40%;" class="w-full h-full object-cover" />
     </div>
 
     <!-- Contenido de la Portada -->
     <div class="text-center px-4 max-w-4xl mx-auto relative z-10">
-      <span class="inline-block py-1 px-3 rounded-full bg-[#b03e29]/30 text-[#d49a3a] text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-md border border-[#d49a3a]/30 shadow-lg">
+      <span class="rn-hero-enter rn-hero-enter--1 inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-ink-900/55 text-maiz-500 text-xs font-bold tracking-[0.18em] uppercase mb-6 backdrop-blur-md border border-maiz-500/40 shadow-lg">
+        <span class="h-1.5 w-1.5 rounded-full bg-maiz-500" aria-hidden="true"></span>
         Tradición y Sabor en el Cusco
       </span>
-      
-      <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-none mb-6 drop-shadow-2xl">
-        Lo mejor de <br/> <span class="text-[#d49a3a] italic font-serif">nuestra tierra</span>
+
+      <h1 id="hero-title" class="rn-hero-title rn-hero-enter rn-hero-enter--2 font-display font-bold text-cal-50 mb-6 drop-shadow-lg">
+        Lo mejor de <br />
+        <span class="text-maiz-500 italic font-serif">nuestra tierra</span>
       </h1>
-      
-      <p class="text-lg md:text-xl text-gray-100 font-serif max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-lg">
+
+      <p class="rn-hero-enter rn-hero-enter--3 text-lg md:text-xl text-cal-100 font-serif max-w-2xl mx-auto mb-10 leading-relaxed text-pretty drop-shadow">
         Un rincón acogedor donde los sabores de antaño se encuentran con la calidez de hoy. Te esperamos para compartir la mesa.
       </p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#platos" class="rounded-full bg-[#b03e29] text-white px-8 py-4 text-base font-semibold hover:bg-[#943221] transition-all shadow-xl hover:-translate-y-1">
+
+      <div class="rn-hero-enter rn-hero-enter--4 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#platos" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-[3.25rem] rounded-full bg-adobe-500 text-cal-50 px-8 py-4 text-base font-semibold shadow-xl hover:bg-adobe-600 hover:-translate-y-1 transition-all">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+          </svg>
           Ver la Carta
         </a>
-        <a href="#reservas" class="rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 text-base font-semibold hover:bg-white/20 transition-all">
+        <a href="#reservas" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-[3.25rem] rounded-full bg-cal-50/10 backdrop-blur-md border border-cal-50/40 text-cal-50 px-8 py-4 text-base font-semibold hover:bg-cal-50/20 transition-all">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
           Reservar Mesa
         </a>
       </div>
@@ -121,7 +193,7 @@
   <!-- ========================================== -->
   <!-- CARTA / PLATOS (Inyectado por JS) -->
   <!-- ========================================== -->
-  <section id="platos" class="py-24 bg-cal-50 relative">
+  <section id="platos" aria-labelledby="carta-title" class="py-24 bg-cal-50 relative">
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-none transform -translate-y-px">
       <svg class="relative block w-full h-12 text-cal-100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 120">
         <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="currentColor"></path>
@@ -132,12 +204,22 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4">Nuestra Carta</h2>
-        <p class="font-serif text-ink-700 text-lg italic">"Platos preparados con leña, sazón y cariño."</p>
+        <span class="inline-flex items-center gap-2 rounded-full border border-adobe-500/25 bg-adobe-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-adobe-600 mb-4">
+          <span class="h-1.5 w-1.5 rounded-full bg-adobe-500" aria-hidden="true"></span>
+          Cocina de leña
+        </span>
+        <h2 id="carta-title" class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4 text-balance">Nuestra Carta</h2>
+        <p class="font-serif text-ink-700 text-lg italic text-pretty">"Platos preparados con leña, sazón y cariño."</p>
       </div>
 
       <div id="grid-platos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- JS inyectará aquí -->
+        <noscript>
+          <div class="rn-dish-empty">
+            <p class="font-serif italic mb-4">Activa JavaScript para ver nuestra carta actualizada.</p>
+            <a href="#reservas" class="rn-dish-cta">Reservar una mesa</a>
+          </div>
+        </noscript>
       </div>
     </div>
   </section>
@@ -145,32 +227,61 @@
   <!-- ========================================== -->
   <!-- SECCIÓN NOSOTROS -->
   <!-- ========================================== -->
-  <section id="nosotros" class="py-24 bg-cal-100 relative">
+  <section id="nosotros" aria-labelledby="nosotros-title" class="py-24 bg-cal-100 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        
-        <div class="relative">
-          <div class="absolute -inset-4 bg-maiz-500/20 rounded-2xl transform rotate-3"></div>
-          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop" alt="Cocina cusqueña" class="relative rounded-2xl shadow-2xl object-cover h-[500px] w-full" />
-        </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-        <div>
-          <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-6">Nuestra Historia</h2>
-          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-6">
-            Nacimos con la idea de rescatar los sabores de nuestras abuelas. En <strong class="text-adobe-600">El Rinconcito Cusqueño</strong>, cada plato es preparado a fuego lento, con ingredientes traídos directamente de los mercados locales y el cariño de nuestra gente.
-          </p>
-          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-8">
-            No solo servimos comida; compartimos un pedacito de nuestra cultura, nuestra historia y el calor de hogar que caracteriza al Cusco.
-          </p>
-          <div class="flex items-center gap-4">
-            <div class="h-12 w-12 rounded-full bg-huerto-500 flex items-center justify-center text-cal-50">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        <div class="rn-story-media">
+          <div class="rn-story-frame" aria-hidden="true"></div>
+          <img src="img/nosotros-cocina.jpg" alt="Cocina cusqueña" width="1200" height="800" loading="lazy" decoding="async" class="rn-story-img" />
+
+          <div class="rn-story-badge">
+            <div class="rn-story-badge-icon" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
             </div>
             <div>
               <p class="font-bold text-ink-900">100% Artesanal</p>
               <p class="text-sm text-ink-700">Sazón tradicional cusqueña</p>
             </div>
           </div>
+        </div>
+
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-huerto-500/25 bg-huerto-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-huerto-600 mb-4">
+            <span class="h-1.5 w-1.5 rounded-full bg-huerto-500" aria-hidden="true"></span>
+            Cocina con raíces
+          </span>
+
+          <h2 id="nosotros-title" class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-6 text-balance">Nuestra Historia</h2>
+
+          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-5">
+            Nacimos con la idea de rescatar los sabores de nuestras abuelas. En <strong class="text-adobe-600">El Rinconcito Cusqueño</strong>, cada plato es preparado a fuego lento, con ingredientes traídos directamente de los mercados locales y el cariño de nuestra gente.
+          </p>
+          <p class="font-serif text-lg text-ink-700 leading-relaxed mb-8">
+            No solo servimos comida; compartimos un pedacito de nuestra cultura, nuestra historia y el calor de hogar que caracteriza al Cusco.
+          </p>
+
+          <ul class="rn-story-list">
+            <li class="rn-story-item">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Ingredientes de mercados locales
+            </li>
+            <li class="rn-story-item">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Cocción lenta a leña
+            </li>
+            <li class="rn-story-item">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Recetas que pasan de generación en generación
+            </li>
+          </ul>
+
+          <a href="#platos" class="rn-story-cta">
+            Conoce nuestra carta
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" /></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -179,40 +290,62 @@
   <!-- ========================================== -->
   <!-- SECCIÓN ESPACIOS -->
   <!-- ========================================== -->
-  <section id="espacios" class="py-24 bg-cal-50">
+  <section id="espacios" aria-labelledby="espacios-title" class="py-24 bg-cal-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4">Nuestros Espacios</h2>
-        <p class="font-serif text-ink-700 text-lg italic">Elige el ambiente perfecto para tu visita.</p>
+        <span class="inline-flex items-center gap-2 rounded-full border border-adobe-500/25 bg-adobe-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-adobe-600 mb-4">
+          <span class="h-1.5 w-1.5 rounded-full bg-adobe-500" aria-hidden="true"></span>
+          Ambientes
+        </span>
+        <h2 id="espacios-title" class="font-display text-4xl md:text-5xl font-bold text-adobe-500 mb-4 text-balance">Nuestros Espacios</h2>
+        <p class="font-serif text-ink-700 text-lg italic text-pretty">Elige el ambiente perfecto para tu visita.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Salón Principal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 p-6">
-            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Salón Principal</h3>
-            <p class="text-cal-100 text-sm font-serif">El corazón del Rinconcito, lleno de vida y música.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <a href="#reservas" class="rn-space-card">
+          <div class="rn-space-media">
+            <img src="img/espacio-salon.jpg" alt="Salón Principal" width="800" height="533" loading="lazy" decoding="async" class="rn-space-img" />
+            <span class="rn-space-index" aria-hidden="true">01</span>
           </div>
-        </div>
+          <div class="rn-space-body">
+            <h3 class="rn-space-title">Salón Principal</h3>
+            <p class="rn-space-desc">El corazón del Rinconcito, lleno de vida y música.</p>
+            <span class="rn-space-cta">
+              Reservar este espacio
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" /></svg>
+            </span>
+          </div>
+        </a>
 
-        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" alt="Terraza" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 p-6">
-            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Terraza Andina</h3>
-            <p class="text-cal-100 text-sm font-serif">Perfecta para atardeceres con vista a la ciudad.</p>
+        <a href="#reservas" class="rn-space-card">
+          <div class="rn-space-media">
+            <img src="img/espacio-terraza.jpg" alt="Terraza Andina" width="800" height="533" loading="lazy" decoding="async" class="rn-space-img" />
+            <span class="rn-space-index" aria-hidden="true">02</span>
           </div>
-        </div>
+          <div class="rn-space-body">
+            <h3 class="rn-space-title">Terraza Andina</h3>
+            <p class="rn-space-desc">Perfecta para atardeceres con vista a la ciudad.</p>
+            <span class="rn-space-cta">
+              Reservar este espacio
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" /></svg>
+            </span>
+          </div>
+        </a>
 
-        <div class="group relative rounded-xl overflow-hidden h-[350px] shadow-lg cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop" alt="Patio Interior" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/20 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 p-6">
-            <h3 class="font-display text-2xl font-bold text-cal-50 mb-1">Patio Rústico</h3>
-            <p class="text-cal-100 text-sm font-serif">Rodeado de plantas y piedra, para momentos íntimos.</p>
+        <a href="#reservas" class="rn-space-card">
+          <div class="rn-space-media">
+            <img src="img/espacio-patio.jpg" alt="Patio Rústico" width="800" height="600" loading="lazy" decoding="async" class="rn-space-img" />
+            <span class="rn-space-index" aria-hidden="true">03</span>
           </div>
-        </div>
+          <div class="rn-space-body">
+            <h3 class="rn-space-title">Patio Rústico</h3>
+            <p class="rn-space-desc">Rodeado de plantas y piedra, para momentos íntimos.</p>
+            <span class="rn-space-cta">
+              Reservar este espacio
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" /></svg>
+            </span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -220,54 +353,62 @@
   <!-- ========================================== -->
   <!-- SECCIÓN DE RESERVAS (El Formulario) -->
   <!-- ========================================== -->
-  <section id="reservas" class="py-24 bg-adobe-500 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+  <section id="reservas" aria-labelledby="reservas-title" class="py-24 bg-adobe-500 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" aria-hidden="true" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="bg-cal-50 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
-        
-        <div class="bg-ink-900 p-8 md:w-1/3 flex flex-col justify-center text-center md:text-left">
-          <h3 class="font-display text-3xl font-bold text-maiz-500 mb-4">Te esperamos</h3>
-          <p class="font-serif text-cal-100 text-sm leading-relaxed mb-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="rn-reserve-card">
+
+        <aside class="rn-reserve-aside">
+          <span class="rn-reserve-eyebrow">Reservas</span>
+          <h2 id="reservas-title" class="rn-reserve-title">Te esperamos</h2>
+          <p class="rn-reserve-lead">
             Reserva tu mesa de forma rápida y asegura tu lugar en nuestro rincón favorito del Cusco.
           </p>
-          <div class="space-y-4 text-cal-100 text-sm">
-            <p class="flex items-center justify-center md:justify-start gap-2">
-              <svg class="h-5 w-5 text-maiz-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <ul class="rn-reserve-info">
+            <li>
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               Lun - Dom: 12:00 - 23:00
-            </p>
-            <p class="flex items-center justify-center md:justify-start gap-2">
-              <svg class="h-5 w-5 text-maiz-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </li>
+            <li>
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               Calle San Blas, Cusco
-            </p>
-          </div>
-        </div>
+            </li>
+          </ul>
+        </aside>
 
-        <div class="p-8 md:w-2/3">
-          <form id="form-reserva" class="space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label class="block text-sm font-semibold text-ink-900 mb-1">Nombre completo</label>
-                <input type="text" id="res-nombre" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="Ej. Juan Pérez">
+        <div class="rn-reserve-panel" id="reserva-panel">
+          <form id="form-reserva" class="rn-form" novalidate>
+            <div class="rn-form-grid rn-form-grid--2">
+              <div class="rn-field">
+                <label for="res-nombre" class="rn-label">Nombre completo</label>
+                <input type="text" id="res-nombre" name="nombre" required autocomplete="name" class="rn-input" placeholder="Ej. Juan Pérez" aria-describedby="res-nombre-error">
+                <p class="rn-field-error" id="res-nombre-error" hidden></p>
               </div>
-              <div>
-                <label class="block text-sm font-semibold text-ink-900 mb-1">Teléfono / WhatsApp</label>
-                <input type="tel" id="res-telefono" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="+51 999 999 999">
+
+              <div class="rn-field">
+                <label for="res-telefono" class="rn-label">Teléfono / WhatsApp</label>
+                <input type="tel" id="res-telefono" name="telefono" required autocomplete="tel" inputmode="tel" class="rn-input" placeholder="+51 999 999 999" aria-describedby="res-telefono-error">
+                <p class="rn-field-error" id="res-telefono-error" hidden></p>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              <div>
-                <label class="block text-sm font-semibold text-ink-900 mb-1">Fecha</label>
-                <input type="date" id="res-fecha" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+            <div class="rn-form-grid rn-form-grid--3">
+              <div class="rn-field">
+                <label for="res-fecha" class="rn-label">Fecha</label>
+                <input type="date" id="res-fecha" name="fecha" required class="rn-input" aria-describedby="res-fecha-error">
+                <p class="rn-field-error" id="res-fecha-error" hidden></p>
               </div>
-              <div>
-                <label class="block text-sm font-semibold text-ink-900 mb-1">Hora</label>
-                <input type="time" id="res-hora" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+
+              <div class="rn-field">
+                <label for="res-hora" class="rn-label">Hora</label>
+                <input type="time" id="res-hora" name="hora" required min="12:00" max="22:30" class="rn-input" aria-describedby="res-hora-error">
+                <p class="rn-field-error" id="res-hora-error" hidden></p>
               </div>
-              <div>
-                <label class="block text-sm font-semibold text-ink-900 mb-1">Personas</label>
-                <select id="res-personas" required class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition">
+
+              <div class="rn-field">
+                <label for="res-personas" class="rn-label">Personas</label>
+                <select id="res-personas" name="personas" required class="rn-input" aria-describedby="res-personas-error">
                   <option value="1">1 Persona</option>
                   <option value="2" selected>2 Personas</option>
                   <option value="3">3 Personas</option>
@@ -275,15 +416,19 @@
                   <option value="5">5 Personas</option>
                   <option value="6">6+ Personas</option>
                 </select>
+                <p class="rn-field-error" id="res-personas-error" hidden></p>
               </div>
             </div>
 
-            <div>
-              <label class="block text-sm font-semibold text-ink-900 mb-1">Notas adicionales (Opcional)</label>
-              <textarea id="res-notas" rows="2" class="w-full rounded-lg border border-cal-100 bg-white px-4 py-3 text-sm focus:border-adobe-500 focus:ring-2 focus:ring-adobe-500/20 outline-none transition" placeholder="¿Alguna alergia o pedido especial?"></textarea>
+            <div class="rn-field">
+              <label for="res-notas" class="rn-label">Notas adicionales <span class="rn-label-hint">(opcional)</span></label>
+              <textarea id="res-notas" name="notas" rows="3" maxlength="300" class="rn-input" placeholder="¿Alguna alergia o pedido especial?" aria-describedby="res-notas-error"></textarea>
+              <p class="rn-field-error" id="res-notas-error" hidden></p>
             </div>
 
-            <button type="submit" class="w-full bg-adobe-500 text-cal-50 font-bold text-lg rounded-lg py-3.5 hover:bg-adobe-600 transition-colors shadow-lg shadow-adobe-500/30 mt-2">
+            <p class="rn-form-status" id="reserva-estado" role="status" aria-live="polite" hidden></p>
+
+            <button type="submit" class="rn-form-submit">
               Confirmar Reserva
             </button>
           </form>
@@ -292,58 +437,85 @@
     </div>
   </section>
 
-  <!-- FOOTER MÍNIMO -->
-  <footer class="bg-ink-900 py-8 text-center text-cal-100 text-sm font-serif">
-    <p>&copy; 2024 El Rinconcito Cusqueño. Todos los derechos reservados.</p>
-    <p class="mt-2 text-xs text-ink-700">Desarrollado por <a href="../../index.html" class="text-maiz-500 hover:underline">devToolsCusco</a></p>
+  <!-- ========================================== -->
+  <!-- FOOTER -->
+  <!-- ========================================== -->
+  <footer class="rn-footer">
+    <div class="rn-footer-inner">
+      <div class="rn-footer-brand">
+        <p class="rn-footer-logo">El Rinconcito <span>Cusqueño</span></p>
+        <p class="rn-footer-tagline">Cocina de leña, sazón y tradición cusqueña.</p>
+      </div>
+
+      <nav class="rn-footer-nav" aria-label="Enlaces del restaurante">
+        <a href="#platos">Nuestra carta</a>
+        <a href="#espacios">Espacios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#reservas">Reservar</a>
+      </nav>
+
+      <div class="rn-footer-hub">
+        <p class="rn-footer-hub-title">¿Explorando más proyectos?</p>
+        <a href="../../index.html" class="rn-footer-hub-link">
+          Volver a devToolsCusco
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="rn-footer-bottom">
+      <p>&copy; <span id="anio-actual">2024</span> El Rinconcito Cusqueño. Todos los derechos reservados.</p>
+      <p>Desarrollado por <a href="../../index.html">devToolsCusco</a></p>
+    </div>
   </footer>
     <!-- ========================================== -->
   <!-- CHATBOT VISUAL -->
   <!-- ========================================== -->
-    <!-- Botón Flotante del Chat (Más grande y visible) -->
-  <button id="chat-toggle" class="fixed bottom-6 right-6 z-40 bg-ink-900 text-maiz-500 p-4 rounded-full shadow-2xl hover:bg-ink-800 hover:scale-110 transition-all flex items-center justify-center group">
-    <!-- Burbuja de chat grande -->
-    <svg class="h-8 w-8 group-hover:animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <button id="chat-toggle" type="button" class="rn-chat-toggle" aria-expanded="false" aria-controls="chat-window" aria-label="Abrir chat">
+    <svg class="rn-chat-icon-open h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+    <svg class="rn-chat-icon-close h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" hidden>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   </button>
 
-  <!-- Ventana del Chat -->
-  <div id="chat-window" class="fixed bottom-24 right-24 z-50 w-80 bg-white rounded-2xl shadow-2xl overflow-hidden hidden flex-col border border-cal-100">
-    <!-- Header del Chat -->
-    <div class="bg-ink-900 p-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="h-8 w-8 rounded-full bg-adobe-500 flex items-center justify-center text-white font-bold">R</div>
+  <div id="chat-window" class="rn-chat-window" role="dialog" aria-labelledby="chat-title" hidden>
+    <div class="rn-chat-header">
+      <div class="rn-chat-identity">
+        <span class="rn-chat-avatar" aria-hidden="true">R</span>
         <div>
-          <p class="text-sm font-bold text-cal-50">RinconcitoBot</p>
-          <p class="text-[10px] text-green-400 flex items-center gap-1">
-            <span class="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse"></span> En línea
-          </p>
+          <p id="chat-title" class="rn-chat-name">RinconcitoBot</p>
+          <p class="rn-chat-status"><span class="rn-chat-dot" aria-hidden="true"></span> En línea</p>
         </div>
       </div>
-      <button id="chat-close" class="text-cal-100 hover:text-white">
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      <button type="button" id="chat-close" class="rn-chat-close" aria-label="Cerrar chat">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
     </div>
 
-    <!-- Área de Mensajes -->
-    <div id="chat-messages" class="p-4 h-64 overflow-y-auto bg-cal-50 flex flex-col gap-3 text-sm">
-      <!-- Mensaje del Bot -->
-      <div class="flex gap-2">
-        <div class="h-6 w-6 rounded-full bg-adobe-500 flex-shrink-0 flex items-center justify-center text-white text-xs font-bold mt-1">R</div>
-        <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm border border-cal-100 text-ink-900">
+    <div id="chat-messages" class="rn-chat-messages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversación" tabindex="0">
+      <div class="rn-chat-msg">
+        <span class="rn-chat-avatar rn-chat-avatar--sm" aria-hidden="true">R</span>
+        <p class="rn-chat-bubble rn-chat-bubble--bot">
           ¡Hola! Soy el asistente virtual de El Rinconcito. ¿En qué te puedo ayudar hoy?
-        </div>
+        </p>
       </div>
     </div>
 
-    <!-- Input del Chat -->
-    <div class="p-3 bg-white border-t border-cal-100 flex gap-2">
-      <input type="text" id="chat-input" placeholder="Escribe un mensaje..." class="flex-1 bg-cal-50 border border-cal-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-adobe-500">
-      <button id="chat-send" class="bg-adobe-500 text-white p-2 rounded-full hover:bg-adobe-600 transition-colors">
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+    <form id="chat-form" class="rn-chat-form">
+      <label for="chat-input" class="rn-sr-only">Escribe tu mensaje</label>
+      <input type="text" id="chat-input" class="rn-chat-input" placeholder="Escribe un mensaje..." autocomplete="off" maxlength="200" />
+      <button type="submit" id="chat-send" class="rn-chat-send" aria-label="Enviar mensaje">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
       </button>
-    </div>
+    </form>
   </div>
 
   <!-- SCRIPTS -->

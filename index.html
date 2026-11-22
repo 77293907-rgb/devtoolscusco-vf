@@ -6,6 +6,41 @@
   <meta name="description" content="devToolsCusco — Hub tecnológico que digitaliza PyMEs turísticas del Cusco con software a medida, domótica y talento joven local." />
   <title>devToolsCusco | Tecnología con impacto para el turismo cusqueño</title>
 
+  <!-- Color de la barra del navegador en móvil (brand-600) -->
+  <meta name="theme-color" content="#059669" />
+
+  <!-- Open Graph / Twitter (vista previa al compartir el enlace) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="devToolsCusco" />
+  <meta property="og:locale" content="es_PE" />
+  <meta property="og:title" content="devToolsCusco | Tecnología con impacto para el turismo cusqueño" />
+  <meta property="og:description" content="Hub tecnológico que digitaliza PyMEs turísticas del Cusco con software a medida, domótica y talento joven local." />
+  <meta name="twitter:card" content="summary" />
+  <!-- TODO (necesita dominio e imagen reales; las URLs deben ser absolutas):
+       <link rel="canonical" href="https://TU-DOMINIO/" />
+       <meta property="og:url" content="https://TU-DOMINIO/" />
+       <meta property="og:image" content="https://TU-DOMINIO/assets/img/og-cover.jpg" />   (1200×630 px)
+       <meta name="twitter:card" content="summary_large_image" />   (sustituye al "summary" de arriba)
+  -->
+
+  <!-- Datos estructurados (SEO local) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "devToolsCusco",
+    "description": "Hub tecnológico y aceleradora de talento que digitaliza PyMEs turísticas del Cusco con software a medida, infraestructura inteligente y jóvenes locales.",
+    "email": "hola@devtoolscusco.pe",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cusco",
+      "addressCountry": "PE"
+    },
+    "areaServed": "Cusco, Perú",
+    "knowsAbout": ["Software a medida", "Domótica hotelera", "Comercio electrónico", "Formación de talento tecnológico"]
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
   <link rel="apple-touch-icon" href="assets/img/favicon.svg" />
@@ -25,24 +60,36 @@
       theme: {
         extend: {
           colors: {
+            // Los valores viven en assets/css/styles.css (:root) como canales RGB.
+            // El formato <alpha-value> mantiene funcionando bg-brand-500/20, ring-accent/50, etc.
             brand: {
-              50:  '#eefcf6',
-              100: '#d5f7e8',
-              500: '#10b981',
-              600: '#059669',
-              700: '#047857',
-              900: '#064e3b',
+              50:  'rgb(var(--brand-50)  / <alpha-value>)',
+              100: 'rgb(var(--brand-100) / <alpha-value>)',
+              200: 'rgb(var(--brand-200) / <alpha-value>)',
+              300: 'rgb(var(--brand-300) / <alpha-value>)',
+              400: 'rgb(var(--brand-400) / <alpha-value>)',
+              500: 'rgb(var(--brand-500) / <alpha-value>)',
+              600: 'rgb(var(--brand-600) / <alpha-value>)',
+              700: 'rgb(var(--brand-700) / <alpha-value>)',
+              800: 'rgb(var(--brand-800) / <alpha-value>)',
+              900: 'rgb(var(--brand-900) / <alpha-value>)',
             },
             ink: {
-              900: '#0b1320',
-              800: '#111c2e',
-              700: '#1f2d43',
+              900: 'rgb(var(--ink-900) / <alpha-value>)',
+              800: 'rgb(var(--ink-800) / <alpha-value>)',
+              700: 'rgb(var(--ink-700) / <alpha-value>)',
             },
-            accent: '#38bdf8',
+            accent: 'rgb(var(--accent) / <alpha-value>)',
+            warm:   'rgb(var(--warm) / <alpha-value>)',
+            terra: {
+              500: 'rgb(var(--terra-500) / <alpha-value>)',
+              700: 'rgb(var(--terra-700) / <alpha-value>)',
+              900: 'rgb(var(--terra-900) / <alpha-value>)',
+            },
           },
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            display: ['Sora', 'Inter', 'sans-serif'],
+            sans:    ['var(--font-sans)'],
+            display: ['var(--font-display)'],
           },
         },
       },
@@ -51,16 +98,21 @@
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <!-- Sin JS: mostrar todo el contenido que se anima al hacer scroll -->
+  <noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 
 <body class="font-sans bg-white text-ink-900 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Saltar al contenido (accesibilidad por teclado) -->
+  <a href="#main-content" class="ds-skip-link">Saltar al contenido</a>
 
   <!-- ============================================================= -->
   <!-- NAVBAR                                                        -->
   <!-- ============================================================= -->
   <header id="site-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/70 transition-shadow duration-300">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Navegación principal">
-      <div class="flex h-16 items-center justify-between">
+      <div class="flex h-[var(--header-h)] items-center justify-between">
 
         <!-- Logo / Marca (SVG inline) -->
         <a href="index.html" class="flex items-center gap-2.5 group" aria-label="devToolsCusco inicio">
@@ -72,20 +124,19 @@
             </svg>
           </span>
           <span class="font-display text-lg font-bold tracking-tight text-ink-900">
-            devTools<span class="text-brand-600">Cusco</span>
+            devTools<span class="text-brand-700">Cusco</span>
           </span>
         </a>
 
         <!-- Menú Desktop -->
-        <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-700">
-          <li><a href="#servicios" class="hover:text-brand-600 transition-colors">Servicios</a></li>
-          <li><a href="#productos" class="hover:text-brand-600 transition-colors">Prototipos</a></li>
-          <li><a href="#impacto" class="hover:text-brand-600 transition-colors">Impacto</a></li>
-          <li><a href="#contacto" class="hover:text-brand-600 transition-colors">Contacto</a></li>
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#productos" class="nav-link">Prototipos</a></li>
+          <li><a href="#impacto"   class="nav-link">Impacto</a></li>
+          <li><a href="#contacto"  class="nav-link">Contacto</a></li>
           <li>
-            <a href="#prototipos"
-               class="inline-flex items-center rounded-full bg-brand-600 px-5 py-2 text-white text-sm font-semibold shadow-sm hover:bg-brand-700 transition-colors">
-              Ver Prototipos
+            <a href="mailto:hola@devtoolscusco.pe" class="ds-btn ds-btn--primary">
+              Hablemos
             </a>
           </li>
         </ul>
@@ -94,7 +145,7 @@
         <button
           id="menu-toggle"
           type="button"
-          class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-ink-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          class="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg text-ink-800 hover:bg-slate-100 transition-colors"
           aria-controls="mobile-menu"
           aria-expanded="false"
           aria-label="Abrir menú"
@@ -110,20 +161,21 @@
         </button>
       </div>
 
-      <!-- Menú Móvil Desplegable -->
-      <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200/70 py-4">
-        <ul class="space-y-1 text-base font-medium text-ink-800">
-          <li><a href="#servicios" class="block rounded-md px-3 py-2 hover:bg-brand-50 hover:text-brand-700">Servicios</a></li>
-          <li><a href="#productos" class="block rounded-md px-3 py-2 hover:bg-brand-50 hover:text-brand-700">Prototipos</a></li>
-          <li><a href="#impacto"   class="block rounded-md px-3 py-2 hover:bg-brand-50 hover:text-brand-700">Impacto</a></li>
-          <li><a href="#contacto"  class="block rounded-md px-3 py-2 hover:bg-brand-50 hover:text-brand-700">Contacto</a></li>
-          <li class="pt-2">
-            <a href="#prototipos"
-               class="block rounded-full bg-brand-600 px-4 py-2.5 text-center text-white font-semibold hover:bg-brand-700 transition-colors">
-              Ver Prototipos
-            </a>
-          </li>
-        </ul>
+      <!-- Menú Móvil Desplegable (el padding va en el contenedor interno para que max-height:0 lo oculte por completo) -->
+      <div id="mobile-menu" class="md:hidden hidden">
+        <div class="border-t border-slate-200/70 py-4">
+          <ul class="space-y-1">
+            <li><a href="#servicios" class="mobile-link">Servicios</a></li>
+            <li><a href="#productos" class="mobile-link">Prototipos</a></li>
+            <li><a href="#impacto"   class="mobile-link">Impacto</a></li>
+            <li><a href="#contacto"  class="mobile-link">Contacto</a></li>
+            <li class="pt-3">
+              <a href="mailto:hola@devtoolscusco.pe" class="ds-btn ds-btn--primary ds-btn--lg w-full">
+                Hablemos
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
@@ -131,7 +183,7 @@
   <!-- ============================================================= -->
   <!-- MAIN                                                          -->
   <!-- ============================================================= -->
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
 
     <!-- ============================================================= -->
     <!-- HERO SECTION                                                  -->
@@ -139,29 +191,22 @@
     <section
       id="hero"
       aria-labelledby="hero-title"
-      class="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center bg-white"
+      class="hero-fullscreen relative isolate overflow-hidden flex items-center bg-white"
     >
       <!-- Fondo decorativo -->
       <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(16,185,129,0.12),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgba(56,189,248,0.10),_transparent_55%)]"></div>
-        <div class="absolute inset-0 opacity-[0.35]"
-             style="background-image:
-               linear-gradient(to right, rgb(15 23 42 / 0.06) 1px, transparent 1px),
-               linear-gradient(to bottom, rgb(15 23 42 / 0.06) 1px, transparent 1px);
-               background-size: 40px 40px;
-               mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
-               -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);">
-        </div>
+        <div class="hero-bg-glow absolute inset-0"></div>
+        <div class="hero-bg-grid absolute inset-0"></div>
       </div>
 
-      <div class="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="ds-container py-16 md:py-24">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           <!-- COLUMNA IZQ: Copy + CTAs -->
           <div class="lg:col-span-7 text-center lg:text-left">
 
             <!-- Badge superior -->
-            <div class="hero-anim hero-anim-1 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-xs font-semibold text-brand-700 mb-6">
+            <div class="hero-anim hero-anim-1 ds-badge ds-badge--outline mb-6">
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
@@ -172,17 +217,17 @@
             <!-- Título -->
             <h1
               id="hero-title"
-              class="hero-anim hero-anim-2 font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-ink-900 leading-[1.1]"
+              class="hero-anim hero-anim-2 ds-h1"
             >
               Tecnología que
-              <span class="bg-gradient-to-r from-brand-600 via-brand-500 to-accent bg-clip-text text-transparent">
+              <span class="bg-gradient-to-r from-brand-700 via-brand-600 to-sky-600 bg-clip-text text-transparent">
                 impulsa
               </span>
               al turismo del Cusco.
             </h1>
 
             <!-- Subtítulo -->
-            <p class="hero-anim hero-anim-3 mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p class="hero-anim hero-anim-3 ds-lead mt-6 mx-auto lg:mx-0">
               Diseñamos <strong class="text-ink-900">software a medida</strong> e
               <strong class="text-ink-900">infraestructura inteligente</strong>
               para hoteles boutique, lodges y restaurantes. Y lo hacemos con
@@ -194,7 +239,7 @@
             <div class="hero-anim hero-anim-4 mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
                 href="#productos"
-                class="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-600/20 hover:bg-brand-700 hover:shadow-brand-700/30 hover:-translate-y-0.5 transition-all duration-200"
+                class="group ds-btn ds-btn--primary ds-btn--lg"
               >
                 Ver Prototipos
                 <svg class="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
@@ -206,7 +251,7 @@
 
               <a
                 href="#impacto"
-                class="group inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-7 py-3.5 text-base font-semibold text-ink-900 hover:border-brand-500 hover:text-brand-700 hover:-translate-y-0.5 transition-all duration-200"
+                class="group ds-btn ds-btn--secondary ds-btn--lg"
               >
                 Conoce el impacto
                 <svg class="h-5 w-5 transition-transform duration-200 group-hover:translate-y-0.5"
@@ -218,8 +263,8 @@
             </div>
 
             <!-- Trust bar -->
-            <ul class="hero-anim hero-anim-5 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto lg:mx-0">
-              <li class="flex items-center gap-2 text-sm text-slate-600">
+            <ul class="hero-anim hero-anim-5 mt-12 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3">
+              <li class="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-100 text-brand-700">
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -227,7 +272,7 @@
                 </span>
                 Hecho para PyMEs
               </li>
-              <li class="flex items-center gap-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-100 text-brand-700">
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -235,7 +280,7 @@
                 </span>
                 Talento cusqueño
               </li>
-              <li class="flex items-center gap-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-100 text-brand-700">
                   <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -247,18 +292,23 @@
           </div>
 
           <!-- COLUMNA DER: Visual mock -->
-          <div class="lg:col-span-5 hidden lg:block hero-anim hero-anim-3">
+          <div class="lg:col-span-5 mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none hero-anim hero-anim-3"
+               role="img"
+               aria-label="Vista previa ilustrativa de un panel de control de hotel: temperatura, ocupación, iluminación, acceso y una nueva reserva">
             <div class="relative">
 
               <!-- Dashboard mock -->
-              <div class="relative rounded-2xl bg-ink-900 p-6 shadow-2xl shadow-ink-900/20 ring-1 ring-white/10 rotate-1 hover:rotate-0 transition-transform duration-500">
+              <div class="relative rounded-2xl bg-ink-900 p-5 sm:p-6 shadow-2xl shadow-ink-900/20 ring-1 ring-white/10 lg:rotate-1 lg:hover:rotate-0 transition-transform duration-500">
                 <div class="flex items-center justify-between mb-5">
                   <div class="flex items-center gap-2">
                     <span class="h-2.5 w-2.5 rounded-full bg-red-400"></span>
                     <span class="h-2.5 w-2.5 rounded-full bg-yellow-400"></span>
                     <span class="h-2.5 w-2.5 rounded-full bg-green-400"></span>
                   </div>
-                  <span class="text-[10px] font-mono text-slate-400 tracking-wider">DEVTOOLS · LIVE</span>
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400 tracking-wider">
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
+                    DEVTOOLS · LIVE
+                  </span>
                 </div>
 
                 <p class="text-xs text-slate-400 mb-1">Suite Habitación 204</p>
@@ -266,24 +316,38 @@
 
                 <div class="grid grid-cols-2 gap-3 mb-4">
                   <div class="rounded-lg bg-ink-800 p-3 border border-white/5">
-                    <p class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Temperatura</p>
+                    <p class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">Temperatura</p>
                     <p class="font-display text-lg font-bold text-white">21<span class="text-brand-500">°C</span></p>
+                    <p class="mt-1 text-[11px] text-slate-400">Auto · Eco</p>
                   </div>
                   <div class="rounded-lg bg-ink-800 p-3 border border-white/5">
-                    <p class="text-[10px] uppercase tracking-wide text-slate-500 mb-1">Ocupación</p>
+                    <p class="text-[11px] uppercase tracking-wide text-slate-400 mb-1">Ocupación</p>
                     <p class="font-display text-lg font-bold text-white">87<span class="text-brand-500">%</span></p>
+                    <div class="mt-2 h-1 rounded-full bg-white/10 overflow-hidden">
+                      <div class="h-full w-[87%] rounded-full bg-gradient-to-r from-brand-500 to-accent"></div>
+                    </div>
                   </div>
                 </div>
 
                 <div class="space-y-2">
                   <div class="flex items-center justify-between rounded-lg bg-ink-800 px-3 py-2.5 border border-white/5">
-                    <span class="text-xs text-slate-300">💡 Iluminación</span>
+                    <span class="flex items-center gap-2 text-xs text-slate-300">
+                      <svg class="h-4 w-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                      Iluminación
+                    </span>
                     <span class="relative inline-flex h-5 w-9 items-center rounded-full bg-brand-500">
                       <span class="inline-block h-4 w-4 transform translate-x-4 rounded-full bg-white"></span>
                     </span>
                   </div>
                   <div class="flex items-center justify-between rounded-lg bg-ink-800 px-3 py-2.5 border border-white/5">
-                    <span class="text-xs text-slate-300">🔒 Acceso</span>
+                    <span class="flex items-center gap-2 text-xs text-slate-300">
+                      <svg class="h-4 w-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      Acceso
+                    </span>
                     <span class="relative inline-flex h-5 w-9 items-center rounded-full bg-brand-500">
                       <span class="inline-block h-4 w-4 transform translate-x-4 rounded-full bg-white"></span>
                     </span>
@@ -292,11 +356,15 @@
               </div>
 
               <!-- Tarjeta flotante -->
-              <div class="absolute -bottom-6 -left-6 rounded-xl bg-white p-4 shadow-xl ring-1 ring-slate-200 w-56 -rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div class="absolute -bottom-6 left-3 sm:-left-6 hero-float w-56 rounded-xl bg-white p-4 shadow-xl ring-1 ring-slate-200 lg:-rotate-2 lg:hover:rotate-0 transition-transform duration-500">
                 <div class="flex items-center gap-3">
-                  <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-100 text-brand-700 text-lg">📅</span>
+                  <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-100 text-brand-700">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                    </svg>
+                  </span>
                   <div>
-                    <p class="text-[10px] uppercase tracking-wide text-slate-500">Nueva reserva</p>
+                    <p class="text-[11px] uppercase tracking-wide text-slate-500">Nueva reserva</p>
                     <p class="text-sm font-semibold text-ink-900">Suite Machu Picchu</p>
                   </div>
                 </div>
@@ -320,22 +388,22 @@
     <section
       id="servicios"
       aria-labelledby="servicios-title"
-      class="relative py-20 sm:py-28 bg-slate-50"
+      class="ds-section ds-section--alt relative"
     >
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="ds-container">
 
         <!-- Encabezado -->
         <div class="max-w-3xl mx-auto text-center mb-16" data-reveal>
-          <span class="inline-block rounded-full bg-brand-100 text-brand-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-4">
+          <span class="ds-badge mb-4">
             Nuestro Ecosistema
           </span>
-          <h2 id="servicios-title" class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink-900 leading-tight">
+          <h2 id="servicios-title" class="ds-h2">
             Dos ramas, un solo objetivo:
-            <span class="bg-gradient-to-r from-brand-600 to-accent bg-clip-text text-transparent">
+            <span class="bg-gradient-to-r from-brand-700 to-sky-600 bg-clip-text text-transparent">
               transformar tu negocio turístico.
             </span>
           </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p class="ds-lead mt-4 mx-auto">
             Combinamos <strong class="text-ink-900">software a medida</strong> con
             <strong class="text-ink-900">infraestructura inteligente</strong> para que
             tu hotel, lodge o restaurante opere de forma moderna, eficiente y rentable.
@@ -346,7 +414,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           <!-- RAMA 1: Software a Medida -->
-          <article data-reveal data-delay="0" data-tilt class="group relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10 ring-1 ring-slate-200 hover:ring-brand-500 hover:shadow-2xl hover:shadow-brand-600/10 hover:-translate-y-1 transition-all duration-300">
+          <article data-reveal data-delay="0" data-tilt class="group relative flex flex-col overflow-hidden rounded-2xl bg-white p-6 sm:p-10 ring-1 ring-slate-200 hover:ring-brand-500 hover:shadow-2xl hover:shadow-brand-600/10">
             <div class="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-brand-100 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
 
             <div class="relative flex items-center gap-4 mb-6">
@@ -357,7 +425,7 @@
               </div>
               <div>
                 <p class="text-xs font-semibold uppercase tracking-wider text-brand-700">Rama 01</p>
-                <h3 class="font-display text-2xl font-bold text-ink-900">Software a Medida</h3>
+                <h3 class="ds-h3">Software a Medida</h3>
               </div>
             </div>
 
@@ -367,36 +435,15 @@
               plantillas genéricas, sin funciones que no usarás.
             </p>
 
-            <ul class="relative space-y-3 mb-8">
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Sistema de reservas con calendario inteligente y pagos integrados
-              </li>
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Panel administrativo con reportes de ocupación e ingresos
-              </li>
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Multi-idioma y optimizado para móviles (turista-ready)
-              </li>
+            <ul class="ds-checklist relative mb-8 flex-1">
+              <li>Sistema de reservas con calendario inteligente y pagos integrados</li>
+              <li>Panel administrativo con reportes de ocupación e ingresos</li>
+              <li>Multi-idioma y optimizado para móviles (turista-ready)</li>
             </ul>
 
             <a
               href="./productos/reservas/index.html"
-              class="relative inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 hover:bg-brand-700 hover:shadow-brand-700/30 transition-all duration-200 group/cta"
+              class="group/cta ds-btn ds-btn--primary self-start"
             >
               Ver Prototipo: Reservas
               <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
@@ -406,7 +453,7 @@
           </article>
 
           <!-- RAMA 2: Domótica -->
-          <article data-reveal data-delay="150" data-tilt class="group relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10 ring-1 ring-slate-200 hover:ring-accent hover:shadow-2xl hover:shadow-sky-500/10 hover:-translate-y-1 transition-all duration-300">
+          <article data-reveal data-delay="150" data-tilt class="ds-spot-sky group relative flex flex-col overflow-hidden rounded-2xl bg-white p-6 sm:p-10 ring-1 ring-slate-200 hover:ring-accent hover:shadow-2xl hover:shadow-sky-500/10">
             <div class="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-sky-100 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
 
             <div class="relative flex items-center gap-4 mb-6">
@@ -416,8 +463,8 @@
                 </svg>
               </div>
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wider text-sky-600">Rama 02</p>
-                <h3 class="font-display text-2xl font-bold text-ink-900">Automatización Domótica</h3>
+                <p class="text-xs font-semibold uppercase tracking-wider text-sky-700">Rama 02</p>
+                <h3 class="ds-h3">Automatización Domótica</h3>
               </div>
             </div>
 
@@ -427,36 +474,15 @@
               desde cualquier dispositivo.
             </p>
 
-            <ul class="relative space-y-3 mb-8">
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-sky-100 text-sky-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Control de accesos con cerraduras inteligentes y códigos temporales
-              </li>
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-sky-100 text-sky-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Climatización y luminaria automatizadas por presencia
-              </li>
-              <li class="flex items-start gap-3 text-sm text-slate-700">
-                <span class="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full bg-sky-100 text-sky-700">
-                  <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                Panel unificado de monitoreo y ahorro energético
-              </li>
+            <ul class="ds-checklist ds-checklist--sky relative mb-8 flex-1">
+              <li>Control de accesos con cerraduras inteligentes y códigos temporales</li>
+              <li>Climatización y luminaria automatizadas por presencia</li>
+              <li>Panel unificado de monitoreo y ahorro energético</li>
             </ul>
 
             <a
               href="./productos/domotica/index.html"
-              class="relative inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-600/20 hover:bg-sky-700 hover:shadow-sky-700/30 transition-all duration-200 group/cta"
+              class="group/cta ds-btn ds-btn--sky self-start"
             >
               Ver Prototipo: Domótica
               <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
@@ -472,22 +498,18 @@
     <!-- ============================================================= -->
     <!-- SECCIÓN PRODUCTOS / VITRINA DE PROTOTIPOS                     -->
     <!-- ============================================================= -->
-    <section
-      id="productos"
-      aria-labelledby="productos-title"
-      class="relative py-20 sm:py-28 bg-white"
-    >
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="productos" aria-labelledby="productos-title" class="ds-section relative">
+      <div class="ds-container">
 
         <div class="max-w-3xl mx-auto text-center mb-16" data-reveal>
-          <span class="inline-block rounded-full bg-slate-100 text-slate-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-4">
+          <span class="ds-badge ds-badge--neutral mb-4">
             Prototipos Interactivos
           </span>
-          <h2 id="productos-title" class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink-900 leading-tight">
+          <h2 id="productos-title" class="ds-h2">
             Explora nuestras herramientas
-            <span class="bg-gradient-to-r from-brand-600 to-accent bg-clip-text text-transparent">en vivo</span>
+            <span class="bg-gradient-to-r from-brand-700 to-sky-600 bg-clip-text text-transparent">en vivo</span>
           </h2>
-          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p class="ds-lead mt-4 mx-auto">
             Estos son los prototipos funcionales que puedes probar ahora mismo.
             Cada uno fue diseñado con feedback real de hoteles boutique y lodges del Cusco.
           </p>
@@ -496,28 +518,30 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- Tarjeta 1: Reservas -->
-          <article data-reveal data-delay="0" data-tilt class="group relative flex flex-col rounded-2xl bg-white ring-1 ring-slate-200 hover:ring-brand-500 hover:shadow-xl hover:shadow-brand-600/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-            <div class="relative h-40 bg-gradient-to-br from-brand-500 to-brand-700 overflow-hidden">
-              <div class="absolute inset-0 opacity-20"
-                   style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 16px 16px;"></div>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <svg class="h-16 w-16 text-white/90 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                </svg>
+          <article data-reveal data-delay="0" data-tilt class="proto-card group">
+            <div class="proto-card__media">
+              <!-- Vista previa: calendario de reservas -->
+              <div class="absolute inset-x-6 top-8 bottom-0 rounded-t-xl bg-white/95 p-3 shadow-lg transition-transform duration-500 group-hover:-translate-y-1" aria-hidden="true">
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="h-1.5 w-14 rounded-full bg-slate-200"></span>
+                  <span class="rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold text-brand-700">Check-in</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1">
+                  <span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell pc-cell--a"></span><span class="pc-cell pc-cell--b"></span><span class="pc-cell pc-cell--b"></span><span class="pc-cell pc-cell--a"></span>
+                  <span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell pc-cell--a"></span><span class="pc-cell"></span><span class="pc-cell"></span>
+                  <span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span><span class="pc-cell"></span>
+                </div>
               </div>
-              <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-brand-700">
-                <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse"></span>
-                Disponible
-              </span>
+              <span class="proto-card__status">Disponible</span>
             </div>
 
-            <div class="flex flex-col flex-1 p-6">
-              <p class="text-xs font-semibold uppercase tracking-wider text-brand-700 mb-2">Software a Medida</p>
-              <h3 class="font-display text-xl font-bold text-ink-900 mb-2">Sistema de Reservas</h3>
+            <div class="proto-card__body">
+              <p class="proto-card__eyebrow">Software a Medida</p>
+              <h3 class="ds-h3 mb-2">Sistema de Reservas</h3>
               <p class="text-sm text-slate-600 leading-relaxed mb-6 flex-1">
                 Calendario inteligente, disponibilidad en tiempo real y gestión de huéspedes para hoteles boutique.
               </p>
-              <a href="./productos/reservas/index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800 group/link">
+              <a href="./productos/reservas/index.html" class="proto-card__link group/link" aria-label="Probar prototipo: Sistema de Reservas">
                 Probar prototipo
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -527,27 +551,39 @@
           </article>
 
           <!-- Tarjeta 2: Domótica -->
-          <article data-reveal data-delay="100" data-tilt class="group relative flex flex-col rounded-2xl bg-white ring-1 ring-slate-200 hover:ring-accent hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-            <div class="relative h-40 bg-gradient-to-br from-sky-400 to-sky-600 overflow-hidden">
-              <div class="absolute inset-0 opacity-20"
-                   style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 16px 16px;"></div>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <svg class="h-16 w-16 text-white/90 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
-                </svg>
+          <article data-reveal data-delay="100" data-tilt class="proto-card proto-card--sky group">
+            <div class="proto-card__media">
+              <!-- Vista previa: panel de control -->
+              <div class="absolute inset-x-6 top-8 bottom-0 rounded-t-xl bg-ink-900/90 p-3 shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:-translate-y-1" aria-hidden="true">
+                <div class="mb-3 flex items-end justify-between">
+                  <span class="font-display text-2xl font-bold leading-none text-white">21<span class="text-accent">°C</span></span>
+                  <span class="text-[10px] font-semibold text-sky-300">Auto · Eco</span>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="flex items-center justify-between rounded bg-white/5 px-2 py-1.5">
+                    <span class="h-1.5 w-12 rounded-full bg-white/30"></span>
+                    <span class="inline-flex h-3.5 w-6 items-center rounded-full bg-sky-400"><span class="ml-0.5 h-2.5 w-2.5 translate-x-2.5 rounded-full bg-white"></span></span>
+                  </div>
+                  <div class="flex items-center justify-between rounded bg-white/5 px-2 py-1.5">
+                    <span class="h-1.5 w-8 rounded-full bg-white/30"></span>
+                    <span class="inline-flex h-3.5 w-6 items-center rounded-full bg-sky-400"><span class="ml-0.5 h-2.5 w-2.5 translate-x-2.5 rounded-full bg-white"></span></span>
+                  </div>
+                  <div class="flex items-center justify-between rounded bg-white/5 px-2 py-1.5">
+                    <span class="h-1.5 w-10 rounded-full bg-white/30"></span>
+                    <span class="inline-flex h-3.5 w-6 items-center rounded-full bg-white/20"><span class="ml-0.5 h-2.5 w-2.5 rounded-full bg-white/80"></span></span>
+                  </div>
+                </div>
               </div>
-              <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-sky-700">
-                <span class="h-1.5 w-1.5 rounded-full bg-sky-500 animate-pulse"></span>
-                Disponible
-              </span>
+              <span class="proto-card__status">Disponible</span>
             </div>
-            <div class="flex flex-col flex-1 p-6">
-              <p class="text-xs font-semibold uppercase tracking-wider text-sky-600 mb-2">Automatización</p>
-              <h3 class="font-display text-xl font-bold text-ink-900 mb-2">Panel Domótico</h3>
+
+            <div class="proto-card__body">
+              <p class="proto-card__eyebrow">Automatización</p>
+              <h3 class="ds-h3 mb-2">Panel Domótico</h3>
               <p class="text-sm text-slate-600 leading-relaxed mb-6 flex-1">
                 Controla accesos, iluminación y climatización de tus habitaciones desde un solo panel.
               </p>
-              <a href="./productos/domotica/index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-sky-700 hover:text-sky-800 group/link">
+              <a href="./productos/domotica/index.html" class="proto-card__link group/link" aria-label="Probar prototipo: Panel Domótico">
                 Probar prototipo
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -557,27 +593,30 @@
           </article>
 
           <!-- Tarjeta 3: E-commerce (Inkari Art) -->
-          <article data-reveal data-delay="200" data-tilt class="group relative flex flex-col rounded-2xl bg-white ring-1 ring-slate-200 hover:ring-[#c85a3e] hover:shadow-xl hover:shadow-orange-900/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-            <div class="relative h-40 bg-gradient-to-br from-[#c85a3e] to-[#7a2a1a] overflow-hidden">
-              <div class="absolute inset-0 opacity-20"
-                   style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 16px 16px;"></div>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <svg class="h-16 w-16 text-white/90 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
+          <article data-reveal data-delay="200" data-tilt class="proto-card proto-card--terra group">
+            <div class="proto-card__media">
+              <!-- Vista previa: catálogo de productos -->
+              <div class="absolute inset-x-6 top-8 bottom-0 rounded-t-xl bg-white/95 p-3 shadow-lg transition-transform duration-500 group-hover:-translate-y-1" aria-hidden="true">
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="h-1.5 w-14 rounded-full bg-slate-200"></span>
+                  <span class="rounded-full bg-terra-700 px-2 py-0.5 text-[10px] font-semibold text-white">Carrito 2</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div><div class="aspect-square rounded-md bg-gradient-to-br from-amber-200 to-orange-300"></div><span class="mt-1.5 block h-1 w-9 rounded-full bg-slate-200"></span><span class="mt-1 block h-1.5 w-5 rounded-full bg-terra-500"></span></div>
+                  <div><div class="aspect-square rounded-md bg-gradient-to-br from-rose-200 to-red-300"></div><span class="mt-1.5 block h-1 w-7 rounded-full bg-slate-200"></span><span class="mt-1 block h-1.5 w-5 rounded-full bg-terra-500"></span></div>
+                  <div><div class="aspect-square rounded-md bg-gradient-to-br from-stone-200 to-amber-300"></div><span class="mt-1.5 block h-1 w-8 rounded-full bg-slate-200"></span><span class="mt-1 block h-1.5 w-5 rounded-full bg-terra-500"></span></div>
+                </div>
               </div>
-              <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-[#c85a3e]">
-                <span class="h-1.5 w-1.5 rounded-full bg-[#c85a3e] animate-pulse"></span>
-                Disponible
-              </span>
+              <span class="proto-card__status">Disponible</span>
             </div>
-            <div class="flex flex-col flex-1 p-6">
-              <p class="text-xs font-semibold uppercase tracking-wider text-[#c85a3e] mb-2">E-commerce</p>
-              <h3 class="font-display text-xl font-bold text-ink-900 mb-2">Inkari Art</h3>
+
+            <div class="proto-card__body">
+              <p class="proto-card__eyebrow">E-commerce</p>
+              <h3 class="ds-h3 mb-2">Inkari Art</h3>
               <p class="text-sm text-slate-600 leading-relaxed mb-6 flex-1">
                 Tienda online de artesanía cusqueña con carrito de compras interactivo y catálogo dinámico.
               </p>
-              <a href="./productos/ecommerce/index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-[#c85a3e] hover:text-[#a84a2c] group/link">
+              <a href="./productos/ecommerce/index.html" class="proto-card__link group/link" aria-label="Probar prototipo: Inkari Art">
                 Probar prototipo
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -592,7 +631,7 @@
         <div class="mt-16 text-center" data-reveal>
           <p class="text-sm text-slate-600 mb-4">¿No encuentras lo que buscas? Construimos soluciones a medida.</p>
           <a href="mailto:hola@devtoolscusco.pe"
-             class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-ink-900 hover:border-brand-500 hover:text-brand-700 transition-colors">
+             class="ds-btn ds-btn--secondary">
             Conversemos tu proyecto
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -608,7 +647,7 @@
     <section
       id="impacto"
       aria-labelledby="impacto-title"
-      class="relative overflow-hidden py-20 sm:py-28 bg-ink-900 text-slate-200"
+      class="relative overflow-hidden ds-section bg-ink-900 text-slate-200"
     >
       <!-- Fondo decorativo -->
       <div class="pointer-events-none absolute inset-0 -z-0" aria-hidden="true">
@@ -623,21 +662,21 @@
         </div>
       </div>
 
-      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="relative ds-container">
 
         <!-- Encabezado -->
         <div class="max-w-3xl mb-16" data-reveal>
-          <span class="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-300 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-5">
+          <span class="ds-badge ds-badge--dark mb-5">
             <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
             Impacto Social
           </span>
-          <h2 id="impacto-title" class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          <h2 id="impacto-title" class="ds-h2 ds-on-dark">
             La tecnología más poderosa
             <span class="bg-gradient-to-r from-brand-400 via-brand-300 to-amber-300 bg-clip-text text-transparent">
               es la que transforma vidas.
             </span>
           </h2>
-          <p class="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed">
+          <p class="ds-lead ds-lead--on-dark mt-5">
             En devToolsCusco no solo escribimos código: <strong class="text-white">formamos a la próxima generación de talento tech del Cusco</strong>. Cada línea que producimos para tu negocio es también una oportunidad real para un joven cusqueño que quiere quedarse y construir futuro en su tierra.
           </p>
         </div>
@@ -648,7 +687,7 @@
           <!-- COLUMNA IZQ: Timeline de 3 pasos -->
           <div class="lg:col-span-7" data-reveal data-delay="0">
 
-            <h3 class="font-display text-xl font-bold text-white mb-8 flex items-center gap-3">
+            <h3 class="ds-h3 ds-on-dark mb-8 flex items-center gap-3">
               <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand-500/20 text-brand-300">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -661,7 +700,7 @@
 
               <!-- Paso 1 -->
               <li class="relative">
-                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-brand-500 text-white font-bold text-sm ring-4 ring-ink-900">
+                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-brand-500 text-ink-900 font-bold text-sm ring-4 ring-ink-900">
                   1
                 </span>
                 <h4 class="font-display text-lg font-semibold text-white mb-1.5">Captamos talento local</h4>
@@ -672,7 +711,7 @@
 
               <!-- Paso 2 -->
               <li class="relative">
-                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-brand-500 text-white font-bold text-sm ring-4 ring-ink-900">
+                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-brand-500 text-ink-900 font-bold text-sm ring-4 ring-ink-900">
                   2
                 </span>
                 <h4 class="font-display text-lg font-semibold text-white mb-1.5">Los capacitamos en proyectos reales</h4>
@@ -683,7 +722,7 @@
 
               <!-- Paso 3 -->
               <li class="relative">
-                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-amber-500 text-white font-bold text-sm ring-4 ring-ink-900">
+                <span class="absolute -left-10 top-0 grid h-8 w-8 place-items-center rounded-full bg-amber-500 text-ink-900 font-bold text-sm ring-4 ring-ink-900">
                   3
                 </span>
                 <h4 class="font-display text-lg font-semibold text-white mb-1.5">Los conectamos con el futuro</h4>
@@ -704,27 +743,27 @@
               <div class="grid grid-cols-2 gap-6">
                 <div>
                   <p class="font-display text-3xl sm:text-4xl font-extrabold text-white">
-                    <span data-count="25" data-suffix="+">0</span>
+                    <span data-count="25" data-suffix="+">25+</span>
                   </p>
-                  <p class="text-xs text-slate-400 mt-1 leading-snug">Jóvenes cusqueños capacitados</p>
+                  <p class="text-sm text-slate-400 mt-1 leading-snug">Jóvenes cusqueños capacitados</p>
                 </div>
                 <div>
                   <p class="font-display text-3xl sm:text-4xl font-extrabold text-white">
-                    <span data-count="18" data-suffix="">0</span>
+                    <span data-count="18" data-suffix="">18</span>
                   </p>
-                  <p class="text-xs text-slate-400 mt-1 leading-snug">Contratos formales generados</p>
+                  <p class="text-sm text-slate-400 mt-1 leading-snug">Contratos formales generados</p>
                 </div>
                 <div>
                   <p class="font-display text-3xl sm:text-4xl font-extrabold text-white">
-                    <span data-count="100" data-suffix="%">0</span>
+                    <span data-count="100" data-suffix="%">100%</span>
                   </p>
-                  <p class="text-xs text-slate-400 mt-1 leading-snug">Talento 100% cusqueño</p>
+                  <p class="text-sm text-slate-400 mt-1 leading-snug">Talento 100% cusqueño</p>
                 </div>
                 <div>
                   <p class="font-display text-3xl sm:text-4xl font-extrabold text-white">
-                    <span data-count="12" data-suffix="+">0</span>
+                    <span data-count="12" data-suffix="+">12+</span>
                   </p>
-                  <p class="text-xs text-slate-400 mt-1 leading-snug">PyMEs turísticas aliadas</p>
+                  <p class="text-sm text-slate-400 mt-1 leading-snug">PyMEs turísticas aliadas</p>
                 </div>
               </div>
 
@@ -734,8 +773,8 @@
             </div>
 
             <!-- Testimonio -->
-            <figure class="rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 p-6 sm:p-8 text-white relative overflow-hidden">
-              <div class="absolute -top-6 -right-6 text-[120px] leading-none text-white/10 font-serif select-none" aria-hidden="true">"</div>
+            <figure class="rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-6 sm:p-8 text-white relative overflow-hidden">
+              <div class="absolute -top-6 -right-6 text-[120px] leading-none text-white/10 font-serif select-none" aria-hidden="true">“</div>
               <blockquote class="relative">
                 <p class="text-sm sm:text-base leading-relaxed font-medium">
                   “Entré como practicante sin saber nada de código real. Hoy soy desarrollador full-time en un proyecto de reservas para un hotel en San Blas. Nunca imaginé poder construir mi carrera sin salir del Cusco.”
@@ -745,7 +784,7 @@
                 <span class="grid h-10 w-10 place-items-center rounded-full bg-white/20 font-display font-bold text-sm">RS</span>
                 <div>
                   <p class="text-sm font-semibold">Rosa Sallo</p>
-                  <p class="text-xs text-white/70">Junior Developer · devToolsCusco</p>
+                  <p class="text-xs text-brand-100">Junior Developer · devToolsCusco</p>
                 </div>
               </figcaption>
             </figure>
@@ -785,7 +824,7 @@
             </p>
             <a
               href="mailto:hola@devtoolscusco.pe"
-              class="inline-flex items-center gap-2 rounded-full bg-white text-ink-900 px-6 py-3 text-sm font-semibold hover:bg-brand-50 hover:-translate-y-0.5 shadow-lg transition-all duration-200 flex-shrink-0"
+              class="ds-btn ds-btn--light flex-shrink-0"
             >
               Sé parte del cambio
               <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
@@ -804,12 +843,12 @@
   <!-- FOOTER                                                        -->
   <!-- ============================================================= -->
   <footer id="contacto" class="bg-ink-900 text-slate-300">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+    <div class="ds-container py-14 sm:py-16">
 
-      <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
+      <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
 
         <!-- Marca -->
-        <div class="md:col-span-1">
+        <div class="sm:col-span-2 lg:col-span-4">
           <a href="index.html" class="flex items-center gap-2.5 mb-4" aria-label="devToolsCusco inicio">
             <span class="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-white">
               <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -821,52 +860,61 @@
               devTools<span class="text-brand-500">Cusco</span>
             </span>
           </a>
-          <p class="text-sm leading-relaxed text-slate-400">
+          <p class="max-w-sm text-sm leading-relaxed text-slate-400">
             Hub tecnológico y aceleradora de talento. Digitalizamos PyMEs turísticas del Cusco con software a medida,
             infraestructura inteligente y jóvenes locales.
           </p>
         </div>
 
         <!-- Servicios -->
-        <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white mb-4">Servicios</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="./productos/reservas/index.html" class="hover:text-brand-500 transition-colors">Sistema de Reservas</a></li>
-            <li><a href="./productos/domotica/index.html" class="hover:text-brand-500 transition-colors">Domótica Hotelera</a></li>
-            <li><a href="./productos/ecommerce/index.html" class="hover:text-brand-500 transition-colors">Control con Ecommerce</a></li>
-            <li><a href="#" class="hover:text-brand-500 transition-colors">Software a Medida</a></li>
+        <div class="lg:col-span-2">
+          <h3 class="footer-heading">Servicios</h3>
+          <ul class="footer-list">
+            <li><a href="./productos/reservas/index.html" class="footer-link">Sistema de Reservas</a></li>
+            <li><a href="./productos/domotica/index.html" class="footer-link">Domótica Hotelera</a></li>
+            <li><a href="./productos/ecommerce/index.html" class="footer-link">E-commerce (Inkari Art)</a></li>
+            <li><a href="#servicios" class="footer-link">Software a Medida</a></li>
           </ul>
         </div>
 
         <!-- Empresa -->
-        <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white mb-4">Empresa</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="#servicios" class="hover:text-brand-500 transition-colors">Nuestro Ecosistema</a></li>
-            <li><a href="#impacto"   class="hover:text-brand-500 transition-colors">Impacto Social</a></li>
-            <li><a href="#productos" class="hover:text-brand-500 transition-colors">Prototipos</a></li>
-            <li><a href="#" class="hover:text-brand-500 transition-colors">Trabaja con nosotros</a></li>
+        <div class="lg:col-span-2">
+          <h3 class="footer-heading">Empresa</h3>
+          <ul class="footer-list">
+            <li><a href="#servicios" class="footer-link">Nuestro Ecosistema</a></li>
+            <li><a href="#productos" class="footer-link">Prototipos</a></li>
+            <li><a href="#impacto"   class="footer-link">Impacto Social</a></li>
+            <li><a href="mailto:talento@devtoolscusco.pe" class="footer-link">Trabaja con nosotros</a></li>
           </ul>
         </div>
 
         <!-- Contacto -->
-        <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white mb-4">Contacto</h3>
-          <ul class="space-y-2 text-sm text-slate-400">
-            <li class="flex items-start gap-2">
-              <span aria-hidden="true">📍</span>
+        <div class="sm:col-span-2 lg:col-span-4">
+          <h3 class="footer-heading">Contacto</h3>
+          <ul class="footer-list footer-list--contact">
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-5 w-5 flex-none text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
               <span>Cusco, Perú</span>
             </li>
-            <li class="flex items-start gap-2">
-              <span aria-hidden="true">✉️</span>
-              <a href="mailto:hola@devtoolscusco.pe" class="hover:text-brand-500 transition-colors">hola@devtoolscusco.pe</a>
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-5 w-5 flex-none text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+              <a href="mailto:hola@devtoolscusco.pe" class="footer-link">hola@devtoolscusco.pe</a>
             </li>
-            <li class="flex items-start gap-2">
-              <span aria-hidden="true">📞</span>
-              <a href="tel:+51999999999" class="hover:text-brand-500 transition-colors">+51 999 999 999</a>
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-5 w-5 flex-none text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              <a href="tel:+51999999999" class="footer-link">+51 999 999 999</a>
             </li>
           </ul>
 
+          <!-- TODO: añadir las URLs reales de LinkedIn e Instagram y reactivar este bloque
+               (se desactivó porque tenía enlaces href="#" vacíos).
           <div class="mt-4 flex gap-3">
             <a href="#" aria-label="LinkedIn" class="grid h-9 w-9 place-items-center rounded-full bg-ink-700 hover:bg-brand-600 transition-colors">
               <svg class="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -879,13 +927,17 @@
               </svg>
             </a>
           </div>
+          -->
         </div>
       </div>
 
-      <div class="mt-12 border-t border-ink-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-        <p>© <span id="year"></span> devToolsCusco. Todos los derechos reservados.</p>
-        <p class="flex items-center gap-1">
-          Hecho con <span class="text-brand-500">❤️</span> en Cusco, Perú
+      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-ink-700 pt-6 text-sm text-slate-400 sm:flex-row">
+        <p>© <span id="year">2026</span> devToolsCusco. Todos los derechos reservados.</p>
+        <p class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-brand-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+          </svg>
+          Hecho con cariño en Cusco, Perú
         </p>
       </div>
     </div>
@@ -896,7 +948,7 @@
     id="back-to-top"
     type="button"
     aria-label="Volver arriba"
-    class="fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full bg-ink-900 text-white shadow-xl shadow-ink-900/30 opacity-0 translate-y-4 pointer-events-none hover:bg-brand-600 transition-all duration-300"
+    class="back-to-top"
   >
     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />

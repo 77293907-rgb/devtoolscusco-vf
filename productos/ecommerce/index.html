@@ -12,21 +12,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS con Paleta Cultural -->
+  <!-- Tailwind CSS con la paleta del módulo (lee los tokens de inkari.css) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            cream: '#f9f7f2',
-            earth: { 900: '#2c251e', 800: '#4a3f33', 100: '#ebe6dd' },
-            terra: { 500: '#c85a3e', 600: '#a84a2c' },
-            gold: '#d4af37'
+            cream: 'rgb(var(--cream-100) / <alpha-value>)',
+            earth: {
+              50: 'rgb(var(--earth-50) / <alpha-value>)',
+              100: 'rgb(var(--earth-100) / <alpha-value>)',
+              200: 'rgb(var(--earth-200) / <alpha-value>)',
+              300: 'rgb(var(--earth-300) / <alpha-value>)',
+              400: 'rgb(var(--earth-400) / <alpha-value>)',
+              500: 'rgb(var(--earth-500) / <alpha-value>)',
+              600: 'rgb(var(--earth-600) / <alpha-value>)',
+              700: 'rgb(var(--earth-700) / <alpha-value>)',
+              800: 'rgb(var(--earth-800) / <alpha-value>)',
+              900: 'rgb(var(--earth-900) / <alpha-value>)',
+            },
+            terra: {
+              50: 'rgb(var(--terra-50) / <alpha-value>)',
+              100: 'rgb(var(--terra-100) / <alpha-value>)',
+              200: 'rgb(var(--terra-200) / <alpha-value>)',
+              300: 'rgb(var(--terra-300) / <alpha-value>)',
+              400: 'rgb(var(--terra-400) / <alpha-value>)',
+              500: 'rgb(var(--terra-500) / <alpha-value>)',
+              600: 'rgb(var(--terra-600) / <alpha-value>)',
+              700: 'rgb(var(--terra-700) / <alpha-value>)',
+              800: 'rgb(var(--terra-800) / <alpha-value>)',
+              900: 'rgb(var(--terra-900) / <alpha-value>)',
+            },
+            gold: {
+              DEFAULT: 'rgb(var(--gold-500) / <alpha-value>)',
+              50: 'rgb(var(--gold-50) / <alpha-value>)',
+              100: 'rgb(var(--gold-100) / <alpha-value>)',
+              200: 'rgb(var(--gold-200) / <alpha-value>)',
+              300: 'rgb(var(--gold-300) / <alpha-value>)',
+              400: 'rgb(var(--gold-400) / <alpha-value>)',
+              500: 'rgb(var(--gold-500) / <alpha-value>)',
+              600: 'rgb(var(--gold-600) / <alpha-value>)',
+              700: 'rgb(var(--gold-700) / <alpha-value>)',
+              800: 'rgb(var(--gold-800) / <alpha-value>)',
+              900: 'rgb(var(--gold-900) / <alpha-value>)',
+            },
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
+            sans: ['var(--font-sans)'],
+            serif: ['var(--font-display)'],
           },
         },
       },
@@ -35,7 +69,7 @@
 
   <link rel="stylesheet" href="css/inkari.css" />
 </head>
-<body class="font-sans antialiased text-earth-900 overflow-x-hidden">
+<body class="font-sans antialiased text-earth-900">
 
   <!-- Patrón de fondo global -->
   <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
@@ -44,57 +78,173 @@
   <!-- NAVBAR                                     -->
   <!-- ========================================== -->
   <header class="sticky top-0 w-full z-50 bg-cream/90 backdrop-blur-md border-b border-earth-100 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-10">
-      
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3 relative z-10">
+
       <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-3 group">
+      <a href="index.html" class="flex items-center gap-3 group rounded-lg">
         <div class="h-8 w-8 text-terra-500 group-hover:rotate-45 transition-transform duration-500">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L22 20H2L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L22 20H2L12 2Z"/></svg>
         </div>
         <span class="font-serif text-2xl font-bold tracking-tight">Inkari Art</span>
       </a>
 
       <!-- Enlaces Desktop -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-earth-800">
-        <a href="#coleccion" class="hover:text-terra-500 transition-colors">Colección</a>
-        <a href="#historia" class="hover:text-terra-500 transition-colors">Nuestra Historia</a>
-        <a href="#artesanos" class="hover:text-terra-500 transition-colors">Artesanos</a>
+      <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-8 text-sm font-medium text-earth-800">
+        <a href="#coleccion" class="eco-nav-link">Colección</a>
+        <a href="#historia" class="eco-nav-link">Nuestra Historia</a>
+        <a href="#artesanos" class="eco-nav-link">Artesanos</a>
       </nav>
 
-      <!-- Botón Carrito -->
-      <button id="btn-carrito" class="relative flex items-center gap-2 rounded-full border border-earth-100 bg-white px-5 py-2.5 text-sm font-medium hover:border-terra-500 hover:text-terra-500 transition-all shadow-sm">
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-        <span class="hidden sm:inline">Carrito</span>
-        <span id="carrito-count" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-terra-500 text-white text-[10px] font-bold flex items-center justify-center opacity-0 scale-0 transition-all duration-300">0</span>
-      </button>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Botón Carrito -->
+        <button id="btn-carrito" type="button" aria-label="Abrir carrito" aria-controls="carrito-panel" class="relative flex items-center gap-2 rounded-full border border-earth-100 bg-white px-4 sm:px-5 py-2.5 text-sm font-medium hover:border-terra-500 hover:text-terra-500 transition-all shadow-sm">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="hidden sm:inline" aria-hidden="true">Carrito</span>
+          <span id="carrito-count" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-terra-500 text-white text-[10px] font-bold flex items-center justify-center opacity-0 scale-0 transition-all duration-300" aria-hidden="true">0</span>
+        </button>
+
+        <!-- Botón menú móvil -->
+        <button id="menu-toggle" type="button" class="eco-menu-toggle md:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+          <svg id="icono-menu" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icono-cerrar" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil (desplegable bajo la barra) -->
+    <div id="mobile-menu" class="eco-mobile-menu absolute inset-x-0 top-full md:hidden" hidden>
+      <nav aria-label="Navegación móvil" class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <a href="#coleccion" class="eco-mobile-link">
+          Colección
+          <svg class="h-4 w-4 text-terra-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href="#historia" class="eco-mobile-link">
+          Nuestra Historia
+          <svg class="h-4 w-4 text-terra-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href="#artesanos" class="eco-mobile-link">
+          Artesanos
+          <svg class="h-4 w-4 text-terra-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href="#coleccion" class="eco-mobile-cta">
+          Explorar la Colección
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+        </a>
+      </nav>
     </div>
   </header>
 
   <!-- ========================================== -->
   <!-- HERO SECTION                               -->
   <!-- ========================================== -->
-  <section class="relative pt-24 pb-32 lg:pt-32 lg:pb-40 z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      
-      <span class="inline-block py-1 px-3 rounded-full border border-earth-100 bg-white text-xs font-semibold tracking-widest uppercase text-earth-800 mb-6">
-        Hecho a mano en Cusco, Perú
-      </span>
+  <section id="inicio" aria-labelledby="hero-title" class="relative isolate pt-16 pb-24 lg:pt-24 lg:pb-32 z-10 overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 -z-10 eco-hero-glow" aria-hidden="true"></div>
 
-      <h1 class="font-serif text-5xl md:text-7xl font-bold leading-[1.1] max-w-4xl mx-auto mb-8">
-        El alma de los Andes, <br/>
-        <span class="italic text-terra-500">hecha arte.</span>
-      </h1>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-16 items-center">
 
-      <p class="text-lg text-earth-800 max-w-2xl mx-auto mb-12">
-        Descubre nuestra colección curada de textiles, joyería y cerámica tradicional. Cada pieza guarda la historia y la maestría de nuestros artesanos locales.
-      </p>
+        <!-- Columna editorial: copy + CTAs -->
+        <div class="lg:col-span-7 max-w-2xl">
+          <p class="eco-rise eco-rise--1 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-earth-600 mb-6">
+            <span class="h-px w-8 bg-terra-500" aria-hidden="true"></span>
+            Hecho a mano en Cusco, Perú
+          </p>
 
-      <a href="#coleccion" class="inline-flex items-center justify-center gap-2 rounded-full bg-earth-900 px-8 py-4 text-sm font-medium text-white hover:bg-terra-600 hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-xl">
-        Explorar la Colección
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-      </a>
+          <h1 id="hero-title" class="eco-rise eco-rise--2 font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-earth-900">
+            El alma de los Andes,
+            <span class="block italic text-terra-500 mt-1">hecha arte.</span>
+          </h1>
+
+          <p class="eco-rise eco-rise--3 mt-7 text-lg text-earth-800 leading-relaxed max-w-xl">
+            Descubre nuestra colección curada de textiles, joyería y cerámica tradicional. Cada pieza guarda la historia y la maestría de nuestros artesanos locales.
+          </p>
+
+          <div class="eco-rise eco-rise--4 mt-9 flex flex-col sm:flex-row gap-3">
+            <a href="#coleccion" class="eco-btn eco-btn--primary group">
+              Explorar la Colección
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+            <a href="#historia" class="eco-btn eco-btn--ghost group">
+              Nuestra Historia
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+
+          <ul class="eco-rise eco-rise--5 mt-10 flex flex-wrap gap-x-7 gap-y-3 border-t border-earth-100 pt-6 text-sm font-medium text-earth-800">
+            <li class="flex items-center gap-2">
+              <span class="grid h-6 w-6 place-items-center rounded-full bg-terra-50 text-terra-600" aria-hidden="true">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              Técnicas ancestrales
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="grid h-6 w-6 place-items-center rounded-full bg-terra-50 text-terra-600" aria-hidden="true">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              Comercio justo
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="grid h-6 w-6 place-items-center rounded-full bg-terra-50 text-terra-600" aria-hidden="true">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              Origen Cusco
+            </li>
+          </ul>
+        </div>
+
+        <!-- Composición editorial (decorativa) -->
+        <div class="lg:col-span-5 eco-rise eco-rise--3" aria-hidden="true">
+          <div class="relative mx-auto max-w-sm">
+            <div class="absolute -inset-3 rotate-2 rounded-[2rem] bg-terra-500/10"></div>
+
+            <div class="relative overflow-hidden rounded-[2rem] border border-earth-800 bg-earth-900 text-cream shadow-2xl">
+              <div class="eco-hero-weave absolute inset-0"></div>
+
+              <div class="relative flex min-h-[24rem] sm:min-h-[30rem] flex-col p-8 pb-24 sm:p-10 sm:pb-24">
+                <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-gold-300">
+                  <span>Inkari · Cusco</span>
+                  <span>Nº 01</span>
+                </div>
+
+                <div class="flex-1 grid place-items-center py-10">
+                  <svg class="h-40 w-40 text-gold-400" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M60 8 112 60 60 112 8 60Z" />
+                    <path d="M60 24 96 60 60 96 24 60Z" opacity="0.8" />
+                    <path d="M60 40 80 60 60 80 40 60Z" opacity="0.6" />
+                    <circle cx="60" cy="60" r="6" />
+                    <path d="M60 8v16M60 96v16M8 60h16M96 60h16" opacity="0.7" />
+                  </svg>
+                </div>
+
+                <p class="font-serif text-2xl italic leading-snug text-cream">
+                  “Cada pieza guarda la historia de quien la tejió.”
+                </p>
+                <p class="mt-4 text-[10px] uppercase tracking-[0.16em] text-earth-300">
+                  Textiles · Cerámica · Joyería · Gourmet
+                </p>
+              </div>
+            </div>
+
+            <!-- Sello artesanal -->
+            <div class="absolute -bottom-5 -left-2 sm:-left-5 grid h-24 w-24 place-items-center rounded-full border border-gold-500/40 bg-cream text-center shadow-lg">
+              <span class="text-[9px] font-semibold uppercase leading-tight tracking-[0.18em] text-earth-800">
+                Hecho<br />a mano<br /><span class="text-terra-600">Cusco</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
     <!-- ========================================== -->
@@ -104,18 +254,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Encabezado de la sección -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8 mb-10">
         <div class="max-w-2xl">
-          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Nuestra Colección</h2>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-3">Nuestra Colección</h2>
           <p class="text-earth-800">Piezas únicas seleccionadas directamente de los talleres de nuestros maestros artesanos en el Valle Sagrado.</p>
         </div>
-        
-        <!-- Filtros visuales (simulados por ahora) -->
-        <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
-          <button class="px-4 py-2 rounded-full bg-earth-900 text-white text-sm whitespace-nowrap">Todos</button>
-          <button class="px-4 py-2 rounded-full border border-earth-100 text-earth-800 text-sm hover:border-earth-900 whitespace-nowrap">Textiles</button>
-          <button class="px-4 py-2 rounded-full border border-earth-100 text-earth-800 text-sm hover:border-earth-900 whitespace-nowrap">Joyería</button>
-          <button class="px-4 py-2 rounded-full border border-earth-100 text-earth-800 text-sm hover:border-earth-900 whitespace-nowrap">Cerámica</button>
+
+        <!-- Filtros de categoría (generados desde data.js) -->
+        <div class="eco-filtros-wrap shrink-0">
+          <div id="filtros-categorias" class="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Filtrar por categoría"></div>
+          <p id="filtros-estado" class="sr-only" role="status" aria-live="polite"></p>
         </div>
       </div>
 
@@ -132,40 +280,43 @@
   <!-- ========================================== -->
   
   <!-- Fondo oscuro (Overlay) -->
-  <div id="carrito-overlay" class="fixed inset-0 bg-earth-900/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="carrito-overlay" class="fixed inset-0 bg-earth-900/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true"></div>
 
   <!-- Panel Lateral -->
-  <aside id="carrito-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
-    
+  <aside id="carrito-panel" class="eco-cart-panel fixed top-0 right-0 z-50 flex w-full max-w-md translate-x-full transform flex-col bg-white shadow-2xl transition-transform duration-500 ease-in-out" role="dialog" aria-modal="true" aria-labelledby="carrito-titulo" aria-hidden="true" tabindex="-1" inert>
+
     <!-- Header del Carrito -->
-    <div class="px-6 py-5 border-b border-earth-100 flex items-center justify-between bg-cream">
-      <h2 class="font-serif text-2xl font-bold text-earth-900 flex items-center gap-2">
+    <div class="flex shrink-0 items-center justify-between border-b border-earth-100 bg-cream px-6 py-5">
+      <h2 id="carrito-titulo" class="flex items-center gap-2 font-serif text-2xl font-bold text-earth-900">
         Tu Carrito
-        <span id="carrito-count-title" class="bg-terra-500 text-white text-xs font-sans font-bold px-2 py-0.5 rounded-full">0</span>
+        <span id="carrito-count-title" class="rounded-full bg-terra-500 px-2 py-0.5 font-sans text-xs font-bold text-white">0</span>
       </h2>
-      <button id="cerrar-carrito" class="text-earth-800 hover:text-terra-500 transition-colors p-2">
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <button id="cerrar-carrito" type="button" aria-label="Cerrar carrito" class="eco-cart-icon-btn text-earth-800 transition-colors hover:text-terra-600">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
 
+    <!-- Anuncios para lectores de pantalla -->
+    <p id="carrito-estado" class="sr-only" role="status" aria-live="polite"></p>
+
     <!-- Lista de Productos (Inyectada por JS) -->
-    <div id="carrito-items" class="flex-1 overflow-y-auto p-6 space-y-6">
+    <ul id="carrito-items" class="min-h-0 flex-1 list-none space-y-6 overflow-y-auto p-6" aria-label="Productos en el carrito">
       <!-- Los productos se renderizarán aquí -->
-    </div>
+    </ul>
 
     <!-- Footer del Carrito (Totales) -->
-    <div class="border-t border-earth-100 p-6 bg-cream">
-      <div class="flex justify-between items-end mb-4">
-        <span class="text-earth-800 font-medium">Subtotal</span>
+    <div class="eco-cart-footer shrink-0 border-t border-earth-100 bg-cream p-6">
+      <div class="mb-4 flex items-end justify-between gap-4">
+        <span class="font-medium text-earth-800">Subtotal</span>
         <span class="text-2xl font-bold text-earth-900" id="carrito-subtotal">S/ 0.00</span>
       </div>
-      <p class="text-xs text-earth-800 mb-6">Los impuestos y el envío se calculan al finalizar la compra.</p>
-      
-      <button class="w-full bg-earth-900 text-white font-medium py-4 rounded-xl hover:bg-terra-600 transition-colors shadow-lg flex items-center justify-center gap-2">
+      <p class="mb-6 text-xs text-earth-800">Los impuestos y el envío se calculan al finalizar la compra.</p>
+
+      <button id="btn-finalizar" type="button" disabled class="eco-btn eco-btn--primary w-full disabled:cursor-not-allowed disabled:opacity-40">
         Finalizar Compra
-        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </button>
     </div>
   </aside>
@@ -222,6 +373,68 @@
   </section>
 
   <!-- ========================================== -->
+  <!-- SECCIÓN: ARTESANOS                        -->
+  <!-- ========================================== -->
+  <section id="artesanos" class="py-24 bg-white relative z-10 border-t border-earth-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="inline-block py-1 px-3 rounded-full border border-earth-100 bg-cream text-xs font-semibold tracking-widest uppercase text-earth-800 mb-4">
+          Nuestros Maestros
+        </span>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-earth-900 mb-4">Los Artesanos</h2>
+        <p class="text-earth-800 text-lg max-w-2xl mx-auto">
+          Detrás de cada pieza hay manos expertas y una tradición milenaria. Conoce a quienes dan vida al arte del Valle Sagrado.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <!-- Artesana 1 -->
+        <article class="flex flex-col items-center text-center gap-4">
+          <div class="h-24 w-24 rounded-full bg-earth-100 overflow-hidden border-2 border-terra-100">
+            <span class="grid h-full w-full place-items-center font-serif text-3xl font-bold text-terra-500" aria-hidden="true">M</span>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold text-earth-900">María Quispe</h3>
+            <p class="text-sm text-terra-600 font-medium mb-2">Tejedora · Chinchero</p>
+            <p class="text-sm text-earth-800 leading-relaxed">Maestra tejedora con 30 años de experiencia en telares tradicionales backstrap. Sus mantas y bufandas de alpaca siguen los patrones geométricos Inca.</p>
+          </div>
+        </article>
+
+        <!-- Artesano 2 -->
+        <article class="flex flex-col items-center text-center gap-4">
+          <div class="h-24 w-24 rounded-full bg-earth-100 overflow-hidden border-2 border-terra-100">
+            <span class="grid h-full w-full place-items-center font-serif text-3xl font-bold text-terra-500" aria-hidden="true">J</span>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold text-earth-900">Juan Huallpa</h3>
+            <p class="text-sm text-terra-600 font-medium mb-2">Orfebre · San Blas</p>
+            <p class="text-sm text-earth-800 leading-relaxed">Especialista en plata 950 y concha Spondylus. Sus joyas combinan simbología andina precolombina con técnicas de microsoldadura contemporáneas.</p>
+          </div>
+        </article>
+
+        <!-- Artesana 3 -->
+        <article class="flex flex-col items-center text-center gap-4">
+          <div class="h-24 w-24 rounded-full bg-earth-100 overflow-hidden border-2 border-terra-100">
+            <span class="grid h-full w-full place-items-center font-serif text-3xl font-bold text-terra-500" aria-hidden="true">R</span>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold text-earth-900">Rosa Mamani</h3>
+            <p class="text-sm text-terra-600 font-medium mb-2">Cerámica · Ráqchi</p>
+            <p class="text-sm text-earth-800 leading-relaxed">Cría y hornea Toros de Pucará con arcilla local y pigmentos naturales. Quinta generación de cerámistas en su familia.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-14 text-center">
+        <a href="#coleccion" class="eco-btn eco-btn--primary inline-flex">
+          Ver las piezas de nuestros artesanos
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
   <!-- FOOTER                                     -->
   <!-- ========================================== -->
   <footer class="bg-earth-900 text-cream py-16 relative z-10 border-t-[10px] border-terra-500">
@@ -246,9 +459,9 @@
           <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Tienda</h4>
           <ul class="space-y-3 text-sm text-earth-100/70">
             <li><a href="#coleccion" class="hover:text-terra-500 transition-colors">Todas las piezas</a></li>
-            <li><a href="#" class="hover:text-terra-500 transition-colors">Textiles</a></li>
-            <li><a href="#" class="hover:text-terra-500 transition-colors">Joyería</a></li>
-            <li><a href="#" class="hover:text-terra-500 transition-colors">Cerámica</a></li>
+            <li><button type="button" onclick="seleccionarCategoria('Textiles')" class="eco-btn-link hover:text-terra-500">Textiles</button></li>
+            <li><button type="button" onclick="seleccionarCategoria('Joyería')" class="eco-btn-link hover:text-terra-500">Joyería</button></li>
+            <li><button type="button" onclick="seleccionarCategoria('Cerámica')" class="eco-btn-link hover:text-terra-500">Cerámica</button></li>
           </ul>
         </div>
 
@@ -263,18 +476,46 @@
         </div>
       </div>
 
+      <!-- Botón de regreso al hub -->
+      <div class="eco-footer-hub mt-16 pt-8 border-t border-white/10">
+        <a href="../../index.html" class="eco-btn eco-btn--hub">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Volver a devToolsCusco
+        </a>
+      </div>
+
       <!-- Copyright -->
-      <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-earth-100/50">
-        <p>&copy; 2024 Inkari Art. Todos los derechos reservados.</p>
+      <div class="mt-6 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-earth-100/50">
+        <p>&copy; <span id="anio-actual">2026</span> Inkari Art. Todos los derechos reservados.</p>
         <p>Desarrollado con ❤️ por <a href="../../index.html" class="text-terra-500 hover:text-white transition-colors">devToolsCusco</a></p>
       </div>
     </div>
   </footer>
 
   <!-- Toast de Notificación (Mensaje flotante) -->
-  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-earth-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-earth-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
     <svg class="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
     <span class="text-sm font-medium" id="toast-message">Añadido al carrito</span>
+  </div>
+
+  <!-- Modal: Resumen de pedido (3.8) -->
+  <div id="modal-pedido" class="fixed inset-0 z-[60] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="pedido-titulo" hidden>
+    <div class="absolute inset-0 bg-earth-900/50 backdrop-blur-sm" id="pedido-overlay"></div>
+    <div class="relative w-full max-w-sm rounded-3xl border border-earth-100 bg-white p-8 shadow-2xl">
+      <div class="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full bg-terra-50">
+        <svg class="h-8 w-8 text-terra-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+      </div>
+      <h2 id="pedido-titulo" tabindex="-1" class="font-serif text-2xl font-bold text-earth-900 text-center mb-1">Pedido registrado</h2>
+      <p class="text-sm text-earth-800 text-center mb-6">Gracias por tu compra. En breve nos pondremos en contacto contigo.</p>
+      <ul id="pedido-items" class="space-y-3 mb-6 max-h-48 overflow-y-auto" aria-label="Resumen del pedido"></ul>
+      <div class="flex items-center justify-between border-t border-earth-100 pt-4 mb-6">
+        <span class="font-medium text-earth-800">Total</span>
+        <span class="text-xl font-bold text-earth-900" id="pedido-total">S/ 0.00</span>
+      </div>
+      <button type="button" id="pedido-cerrar" class="eco-btn eco-btn--primary w-full">Volver a la tienda</button>
+    </div>
   </div>
     <!-- SCRIPTS -->
   <script src="js/data.js"></script>

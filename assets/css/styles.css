@@ -1,15 +1,127 @@
 /* =========================================================
-   devToolsCusco — styles.css (FINAL)
-   Complementa Tailwind. Se organiza en:
-     1. Base y accesibilidad
-     2. Header (sombra + estado scroll)
-     3. Hero (animaciones fade-up escalonadas)
-     4. Reveal on scroll
-     5. Menú móvil (transición slide)
-     6. Tarjetas tilt + spotlight
-     7. Back-to-top
-     8. prefers-reduced-motion (desactiva todo)
+   devToolsCusco — styles.css
+   Complementa Tailwind (CDN). Se organiza en:
+     0.  Design tokens (variables :root)       ← fuente única del sistema de diseño
+     1.  Base y accesibilidad
+     1b. Componentes base (prefijo ds-)        ← reutilizables en los módulos (Fases 2-4)
+     2.  Header + navegación (desktop y móvil)
+     3.  Hero (animaciones y fondo)
+     4.  Reveal on scroll
+     5.  Menú móvil (transición slide)
+     6.  Tarjetas tilt + spotlight
+     6b. Tarjetas de prototipo (vitrina)
+     6c. Footer
+     7.  Volver arriba
+     8.  prefers-reduced-motion (desactiva todo)
    ========================================================= */
+
+/* =========================================================
+   0. DESIGN TOKENS
+   Fuente única de verdad del sistema de diseño.
+   - Los colores se guardan como canales RGB ("16 185 129") para
+     poder usarlos en CSS con  rgb(var(--brand-500) / .2)  y en
+     Tailwind con  rgb(var(--brand-500) / <alpha-value>)  (meta 1.3),
+     de modo que bg-brand-500/20 siga funcionando.
+   ========================================================= */
+
+:root {
+  /* ---------- Color: marca (esmeralda) ---------- */
+  --brand-50:  238 252 246;
+  --brand-100: 213 247 232;
+  --brand-200: 167 243 208;
+  --brand-300: 110 231 183;
+  --brand-400:  52 211 153;
+  --brand-500:  16 185 129;
+  --brand-600:   5 150 105;
+  --brand-700:   4 120  87;
+  --brand-800:   6  95  70;
+  --brand-900:   6  78  59;
+
+  /* ---------- Color: tinta / fondos oscuros ---------- */
+  --ink-900: 11 19 32;
+  --ink-800: 17 28 46;
+  --ink-700: 31 45 67;
+
+  /* ---------- Color: acentos ---------- */
+  --accent:  56 189 248;   /* cielo  */
+  --warm:   245 158 11;    /* ámbar (sección Impacto) */
+  --sky-100: 224 242 254;  /* rama Domótica */
+  --sky-600:   2 132 199;
+  --sky-700:   3 105 161;
+  --sky-800:   7  89 133;
+  --terra-500: 200  90  62;  /* rama Ecommerce (Inkari Art) */
+  --terra-700: 168  74  44;
+  --terra-900: 122  42  26;
+
+  /* ---------- Color: superficies, bordes y texto ---------- */
+  --surface-1: 255 255 255;
+  --surface-2: 248 250 252;
+  --surface-3: 241 245 249;
+  --border:    226 232 240;
+  --text-strong: var(--ink-900);
+  --text-body:   71 85 105;
+  --text-muted:  100 116 139;
+
+  /* ---------- Color: estados ---------- */
+  --success: 16 185 129;
+  --warning: 245 158 11;
+  --danger:  239 68 68;
+
+  /* ---------- Tipografía ---------- */
+  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  --text-h3:   clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-h2:   clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --text-h1:   clamp(2.25rem, 1.5rem + 3.4vw, 3.75rem);
+
+  --lh-tight: 1.1;
+  --lh-snug:  1.3;
+  --lh-body:  1.65;
+
+  /* ---------- Espaciado (escala de 4 px) ---------- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ---------- Layout ---------- */
+  --container: 80rem;                               /* = max-w-7xl */
+  --gutter:    clamp(1rem, 0.5rem + 2vw, 2rem);
+  --section-y: clamp(5rem, 4rem + 4vw, 7rem);
+  --header-h:  4rem;
+
+  /* ---------- Radios ---------- */
+  --radius-sm:   0.5rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+  --radius-full: 9999px;
+
+  /* ---------- Sombras ---------- */
+  --shadow-sm:   0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-md:   0 8px 24px -12px rgb(15 23 42 / 0.18);
+  --shadow-lg:   0 24px 48px -24px rgb(15 23 42 / 0.28);
+  --shadow-glow: 0 10px 30px -10px rgb(var(--brand-600) / 0.35);
+
+  /* ---------- Movimiento ---------- */
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:  150ms;
+  --dur-base:  300ms;
+  --dur-slow:  700ms;
+}
 
 /* =========================================================
    1. BASE Y ACCESIBILIDAD
@@ -18,15 +130,236 @@
 /* Smooth scroll nativo (respaldo si JS se desactiva) */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* compensa navbar sticky */
+  scroll-padding-top: calc(var(--header-h) + 1rem); /* compensa navbar sticky */
 }
 
-/* Foco visible accesible */
+/* Foco visible accesible (sin alterar el border-radius del elemento) */
 :focus-visible {
-  outline: 2px solid #10b981;
+  outline: 2px solid rgb(var(--brand-500));
   outline-offset: 2px;
-  border-radius: 4px;
 }
+
+/* Destino del enlace "Saltar al contenido": recibe foco programático,
+   pero no debe dibujar un outline alrededor de toda la página. */
+#main-content:focus {
+  outline: none;
+}
+
+/* Enlace "Saltar al contenido" (se activa en la meta 1.5) */
+.ds-skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -4rem;
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: rgb(var(--ink-900));
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.ds-skip-link:focus {
+  top: var(--space-4);
+}
+
+/* =========================================================
+   1b. COMPONENTES BASE (prefijo ds-)
+   Prefijo "ds-" (design system) para no chocar con las clases
+   de Tailwind (p. ej. .container). Se adoptan en las metas 1.5+.
+   ========================================================= */
+
+/* ---------- Layout ---------- */
+.ds-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.ds-section {
+  padding-block: var(--section-y);
+}
+.ds-section--alt  { background: rgb(var(--surface-2)); }
+.ds-section--dark { background: rgb(var(--ink-900)); color: rgb(226 232 240); }   /* reservado Fases 2-4 */
+
+/* ---------- Botones ---------- */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;                 /* área táctil ≥ 44 px */
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out);
+}
+.ds-btn:active { transform: translateY(0) scale(0.98); }
+/* El "lift" solo con puntero real: en táctil el hover se queda pegado tras tocar */
+@media (hover: hover) {
+  .ds-btn:hover { transform: translateY(-2px); }
+}
+
+.ds-btn--lg { min-height: 3.25rem; padding: var(--space-4) var(--space-8); font-size: var(--text-base); }
+
+.ds-btn--primary {
+  background: rgb(var(--brand-700));   /* brand-700: blanco cumple AA (5.48:1) */
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+.ds-btn--primary:hover { background: rgb(var(--brand-800)); }
+
+.ds-btn--secondary {
+  background: rgb(var(--surface-1));
+  border-color: rgb(var(--border));
+  color: rgb(var(--ink-900));
+}
+.ds-btn--secondary:hover {
+  border-color: rgb(var(--brand-500));
+  color: rgb(var(--brand-700));
+}
+
+/* Reservado para las Fases 2-4 (aún sin uso en el hub) */
+.ds-btn--ghost {
+  background: transparent;
+  color: rgb(var(--ink-700));
+}
+.ds-btn--ghost:hover {
+  background: rgb(var(--brand-50));
+  color: rgb(var(--brand-700));
+}
+
+/* Variante cielo (rama Domótica) */
+.ds-btn--sky {
+  background: rgb(var(--sky-700));     /* sky-700: blanco cumple AA (5.93:1) */
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgb(var(--sky-700) / 0.35);
+}
+.ds-btn--sky:hover { background: rgb(var(--sky-800)); }
+
+/* Variante clara (para fondos oscuros) */
+.ds-btn--light {
+  background: #fff;
+  color: rgb(var(--ink-900));
+  box-shadow: var(--shadow-md);
+}
+.ds-btn--light:hover { background: rgb(var(--brand-50)); }
+
+/* ---------- Badge ---------- */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.375rem var(--space-4);
+  border-radius: var(--radius-full);
+  background: rgb(var(--brand-100));
+  color: rgb(var(--brand-700));
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ds-badge--outline {
+  background: rgb(var(--brand-50));
+  border: 1px solid rgb(var(--brand-200));
+}
+.ds-badge--neutral {
+  background: rgb(var(--surface-3));
+  color: rgb(51 65 85);
+}
+.ds-badge--dark {                       /* sobre fondos oscuros (sección Impacto) */
+  background: rgb(var(--brand-500) / 0.10);
+  border: 1px solid rgb(var(--brand-500) / 0.30);
+  color: rgb(var(--brand-300));
+}
+
+/* ---------- Tarjeta (reservada para las Fases 2-4; aún sin uso en el hub) ---------- */
+.ds-card {
+  background: rgb(var(--surface-1));
+  border-radius: var(--radius-xl);
+  box-shadow: 0 0 0 1px rgb(var(--border));
+  padding: var(--space-8);
+}
+.ds-card--interactive {
+  transition: box-shadow var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out);
+}
+.ds-card--interactive:hover {
+  box-shadow: 0 0 0 1px rgb(var(--brand-500)), var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* ---------- Lista con checks ----------
+   <ul class="ds-checklist"><li>…</li></ul>  ·  variante: .ds-checklist--sky */
+.ds-checklist {
+  --check-bg: rgb(var(--brand-100));
+  --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23047857' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.75l6 6 9-13.5'/%3E%3C/svg%3E");
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+.ds-checklist--sky {
+  --check-bg: rgb(var(--sky-100));
+  --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230369a1' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.75l6 6 9-13.5'/%3E%3C/svg%3E");
+}
+.ds-checklist > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: rgb(51 65 85);
+}
+.ds-checklist > li::before {
+  content: '';
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.0625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--check-bg);
+  background-image: var(--check-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 62%;
+}
+
+/* ---------- Tipografía ---------- */
+.ds-h1,
+.ds-h2,
+.ds-h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: rgb(var(--text-strong));
+  text-wrap: balance;
+}
+.ds-h1 { font-size: var(--text-h1); line-height: var(--lh-tight); }
+.ds-h2 { font-size: var(--text-h2); line-height: 1.15; }
+.ds-h3 { font-size: var(--text-h3); line-height: var(--lh-snug); font-weight: 700; letter-spacing: -0.01em; }
+
+.ds-lead {
+  max-width: 40rem;
+  font-size: var(--text-lg);
+  line-height: var(--lh-body);
+  color: rgb(var(--text-body));
+  text-wrap: pretty;
+}
+
+/* Texto sobre fondos oscuros (van después de .ds-h* / .ds-lead para ganar por orden) */
+.ds-on-dark        { color: #fff; }
+.ds-lead--on-dark  { color: rgb(203 213 225); }   /* slate-300 */
 
 /* =========================================================
    2. HEADER
@@ -39,7 +372,7 @@ html {
 
 /* Transición base del header (para el "hide on scroll down") */
 #site-header {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+  transition: transform 0.35s var(--ease-out),
               box-shadow 0.3s ease,
               background-color 0.3s ease;
 }
@@ -47,6 +380,60 @@ html {
 /* Ocultar al bajar (JS añade la clase) */
 #site-header.is-hidden {
   transform: translateY(-100%);
+}
+
+/* Enlaces del menú desktop: subrayado animado.
+   El estado activo NO cambia el grosor de la fuente → sin saltos de layout. */
+.nav-link {
+  position: relative;
+  padding-block: var(--space-2);
+  color: rgb(var(--ink-700));
+  transition: color var(--dur-base) var(--ease-out);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: rgb(var(--brand-500));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-link:hover,
+.nav-link.is-active {
+  color: rgb(var(--brand-700));
+}
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* Header con menú móvil abierto: fondo casi opaco para que el panel se lea bien */
+#site-header.is-menu-open {
+  background-color: rgb(var(--surface-1) / 0.97);
+}
+
+/* Enlaces del menú móvil (el estado .is-active lo marca main.js) */
+.mobile-link {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;                    /* área táctil ≥ 44 px */
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: rgb(var(--ink-800));
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.mobile-link:hover,
+.mobile-link.is-active {
+  background: rgb(var(--brand-50));
+  color: rgb(var(--brand-700));
 }
 
 /* =========================================================
@@ -66,7 +453,7 @@ html {
 
 .hero-anim {
   opacity: 0;
-  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hero-fade-up 0.7s var(--ease-out) forwards;
 }
 
 .hero-anim-1 { animation-delay: 0.05s; }
@@ -75,21 +462,56 @@ html {
 .hero-anim-4 { animation-delay: 0.45s; }
 .hero-anim-5 { animation-delay: 0.60s; }
 
+/* Hero a pantalla casi completa solo desde tablet; en móvil manda el contenido */
+@media (min-width: 768px) {
+  .hero-fullscreen {
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100svh - var(--header-h));
+  }
+}
+
+/* Fondo decorativo del hero (requiere `isolate` en la sección para quedar por encima de su fondo) */
+.hero-bg-glow {
+  background:
+    radial-gradient(ellipse at top left,     rgb(var(--brand-500) / 0.12), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgb(var(--accent)    / 0.10), transparent 55%);
+}
+.hero-bg-grid {
+  opacity: 0.35;
+  background-image:
+    linear-gradient(to right,  rgb(15 23 42 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+}
+
+/* Tarjeta flotante del mock: leve "respiración".
+   Usa la propiedad `translate` (no `transform`) para no pisar la rotación de Tailwind. */
+@keyframes hero-float {
+  from { translate: 0 0; }
+  to   { translate: 0 -8px; }
+}
+.hero-float {
+  animation: hero-float 4s ease-in-out infinite alternate;
+}
+
 /* =========================================================
    4. REVEAL ON SCROLL
    ========================================================= */
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out),
+              transform 0.7s var(--ease-out);
   will-change: opacity, transform;
 }
 
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;               /* libera la capa de GPU una vez revelado */
 }
 
 /* =========================================================
@@ -100,12 +522,16 @@ html {
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+  transition: max-height 0.35s var(--ease-out),
               opacity 0.25s ease;
 }
 
 #mobile-menu.is-open {
-  max-height: 500px;
+  /* Alto del contenido (~19 rem) pero nunca más que la pantalla; si no cabe, hace scroll interno */
+  max-height: min(20rem, calc(100vh - var(--header-h)));
+  max-height: min(20rem, calc(100dvh - var(--header-h)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
   opacity: 1;
 }
 
@@ -113,21 +539,20 @@ html {
 #mobile-menu:not(.hidden).is-open {
   display: block;
 }
+
 /* =========================================================
    6. TARJETAS — Tilt 3D + Cursor Spotlight
    ========================================================= */
 
 [data-tilt] {
   position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+  /* Sin transform-style: preserve-3d: no hay hijos en 3D y evita texto borroso durante el tilt */
+  transition: transform 0.5s var(--ease-out),
               box-shadow 0.3s ease;
 }
 
-[data-tilt] .tilt-inner {
-  transform: translateZ(20px);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
+/* Color del spotlight (canales RGB). Cada tarjeta puede cambiarlo con --spot */
+.ds-spot-sky { --spot: var(--accent); }
 
 /* Cursor spotlight: usa --mx/--my definidas por JS */
 [data-tilt]::before {
@@ -138,7 +563,7 @@ html {
   pointer-events: none;
   background: radial-gradient(
     340px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(16, 185, 129, 0.10),
+    rgb(var(--spot, var(--brand-500)) / 0.10),
     transparent 60%
   );
   opacity: 0;
@@ -149,15 +574,226 @@ html {
 [data-tilt].is-hovered::before {
   opacity: 1;
 }
+[data-tilt].is-hovered {
+  will-change: transform;          /* solo mientras hay hover */
+}
+
+/* Tarjetas con reveal + tilt a la vez (resuelve A1).
+   Sin esto, la transición de [data-tilt] pisaba la de [data-reveal] y las
+   utilidades `transition-all`/`hover:-translate-y-*` de Tailwind chocaban con el
+   transform inline del JS. El "lift" ahora lo aplica el JS junto con el tilt. */
+[data-reveal][data-tilt] {
+  transition: opacity 0.7s var(--ease-out),
+              transform 0.5s var(--ease-out),
+              box-shadow 0.3s ease;
+}
+
+/* Mientras el puntero está encima, el transform debe seguirlo casi al instante
+   (con 0.5 s se sentía "flotando" detrás del cursor). Al salir vuelve a 0.5 s. */
+[data-reveal][data-tilt].is-hovered {
+  transition: opacity 0.7s var(--ease-out),
+              transform 0.12s ease-out,
+              box-shadow 0.3s ease;
+}
+
+/* =========================================================
+   6b. TARJETAS DE PROTOTIPO (vitrina)
+   Un solo componente; cada módulo solo cambia sus variables de color:
+   <article class="proto-card [proto-card--sky | proto-card--terra]">
+   ========================================================= */
+.proto-card {
+  --pc-from: var(--brand-500);
+  --pc-to: var(--brand-700);
+  --pc-text: var(--brand-700);
+  --pc-text-hover: var(--brand-800);
+  --pc-ring: var(--brand-500);
+  --pc-glow: var(--brand-600);
+  --spot: var(--pc-ring);            /* el spotlight toma el color del módulo */
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: rgb(var(--surface-1));
+  box-shadow: 0 0 0 1px rgb(var(--border));
+}
+.proto-card--sky {
+  --pc-from: var(--accent);
+  --pc-to: var(--sky-600);
+  --pc-text: var(--sky-700);
+  --pc-text-hover: var(--sky-800);
+  --pc-ring: var(--accent);
+  --pc-glow: var(--sky-600);
+}
+.proto-card--terra {
+  --pc-from: var(--terra-500);
+  --pc-to: var(--terra-900);
+  --pc-text: var(--terra-700);
+  --pc-text-hover: var(--terra-900);
+  --pc-ring: var(--terra-500);
+  --pc-glow: var(--terra-900);
+}
+.proto-card:hover {
+  box-shadow: 0 0 0 1px rgb(var(--pc-ring)),
+              0 24px 40px -24px rgb(var(--pc-glow) / 0.3);
+}
+
+.proto-card__media {
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgb(var(--pc-from)), rgb(var(--pc-to)));
+}
+.proto-card__media::before {            /* textura de puntos */
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.proto-card__status {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  background: rgb(255 255 255 / 0.95);
+  color: rgb(var(--pc-text));
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+.proto-card__status::before {           /* punto "en vivo" */
+  content: '';
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: var(--radius-full);
+  background: rgb(var(--pc-ring));
+  animation: ds-pulse 2s ease-in-out infinite;
+}
+@keyframes ds-pulse {
+  50% { opacity: 0.35; }
+}
+
+.proto-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-6);
+}
+.proto-card__eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(var(--pc-text));
+}
+.proto-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  min-height: 2.75rem;                 /* área táctil ≥ 44 px */
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgb(var(--pc-text));
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.proto-card__link:hover {
+  color: rgb(var(--pc-text-hover));
+}
+
+/* Celdas del mini-calendario de la vista previa de Reservas */
+.pc-cell {
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  background: rgb(var(--surface-3));
+}
+.pc-cell--a { background: rgb(var(--brand-200)); }
+.pc-cell--b { background: rgb(var(--brand-500)); }
+
+/* =========================================================
+   6c. FOOTER
+   ========================================================= */
+
+.footer-heading {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.footer-list {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  list-style: none;
+  padding: 0;
+}
+.footer-list--contact {
+  gap: var(--space-3);
+  color: rgb(148 163 184);               /* slate-400 */
+}
+.footer-link {
+  display: inline-block;
+  padding-block: 0.25rem;                /* área de toque más cómoda */
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer-link:hover {
+  color: rgb(var(--brand-400));
+}
 
 /* =========================================================
    7. BACK TO TOP — Mostrar / Ocultar
    ========================================================= */
 
-#back-to-top.is-visible {
+.back-to-top {
+  position: fixed;
+  right: calc(var(--space-6) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: rgb(var(--ink-900));
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+
+  /* Oculto: visibility evita que reciba foco con Tab estando invisible */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              visibility 0s linear var(--dur-base),
+              background-color var(--dur-fast) var(--ease-out);
+}
+.back-to-top.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
   pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              visibility 0s linear 0s,
+              background-color var(--dur-fast) var(--ease-out);
+}
+.back-to-top:active { transform: translateY(0) scale(0.94); }
+@media (hover: hover) {
+  .back-to-top:hover { background: rgb(var(--brand-600)); }
 }
 
 /* =========================================================
@@ -169,6 +805,15 @@ html {
     scroll-behavior: auto;
   }
 
+  /* Red de seguridad: también frena animate-ping/pulse de Tailwind y transiciones sueltas */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   .hero-anim {
     animation: none;
     opacity: 1;
@@ -178,14 +823,6 @@ html {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
-  }
-
-  #site-header,
-  [data-tilt],
-  [data-tilt]::before,
-  #mobile-menu,
-  #back-to-top {
     transition: none !important;
   }
 

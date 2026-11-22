@@ -1,6 +1,6 @@
-/* main.js · Se completa en el Paso 5 (menú móvil, scroll suave, efectos hover). */
 /* =========================================================
-   devToolsCusco — main.js (FINAL)
+   devToolsCusco — main.js
+   Contrato con el HTML (IDs, data-*, clases): ver metas.md → “Notas de auditoría 1.1”.
    Módulos:
      1. Menú móvil con transición
      2. Header inteligente (oculta al bajar, aparece al subir)
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Fuerza un reflow para que la transición se dispare
       void mobileMenu.offsetHeight;
       mobileMenu.classList.add('is-open');
+      document.getElementById('site-header')?.classList.add('is-menu-open');
       iconOpen.classList.add('hidden');
       iconClose.classList.remove('hidden');
       toggleBtn.setAttribute('aria-expanded', 'true');
@@ -39,19 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeMenu = () => {
       mobileMenu.classList.remove('is-open');
+      document.getElementById('site-header')?.classList.remove('is-menu-open');
       iconOpen.classList.remove('hidden');
       iconClose.classList.add('hidden');
       toggleBtn.setAttribute('aria-expanded', 'false');
       toggleBtn.setAttribute('aria-label', 'Abrir menú');
 
-      // Espera a que termine la transición antes de display:none
-      const onEnd = (e) => {
-        if (e.propertyName === 'max-height') {
-          mobileMenu.classList.add('hidden');
-          mobileMenu.removeEventListener('transitionend', onEnd);
-        }
-      };
-      mobileMenu.addEventListener('transitionend', onEnd);
+      // Aplica display:none cuando termina la transición. Se usa setTimeout (y no
+      // transitionend) para que también funcione con prefers-reduced-motion.
+      setTimeout(() => {
+        if (!mobileMenu.classList.contains('is-open')) mobileMenu.classList.add('hidden');
+      }, prefersReduced ? 0 : 360);
     };
 
     toggleBtn.addEventListener('click', () => {
@@ -66,6 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cierra menú si se redimensiona a desktop
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 768 && mobileMenu.classList.contains('is-open')) {
+        closeMenu();
+      }
+    });
+
+    // Cierra con la tecla Esc y devuelve el foco al botón
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+        closeMenu();
+        toggleBtn.focus();
+      }
+    });
+
+    // Cierra al tocar/hacer clic fuera del header
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('is-open') && !e.target.closest('#site-header')) {
         closeMenu();
       }
     });
@@ -84,8 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Sombra suave tras 8px
       header.classList.toggle('is-scrolled', y > 8);
 
-      // Ocultar al bajar (pasado 200px), mostrar al subir
-      if (y > lastScrollY && y > 200) {
+      // Ocultar al bajar (pasado 200px), mostrar al subir — nunca con el menú móvil abierto (A4)
+      const menuOpen = mobileMenu && mobileMenu.classList.contains('is-open');
+      if (y > lastScrollY && y > 200 && !menuOpen && !header.querySelector(':focus-visible')) {
         header.classList.add('is-hidden');
       } else {
         header.classList.remove('is-hidden');
@@ -96,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // Si un enlace del header recibe foco con Tab estando oculto, se vuelve a mostrar
+    header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
   }
 
   /* =========================================================
@@ -130,6 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el.textContent = el.dataset.count + (el.dataset.suffix || '');
       });
     } else {
+      // El HTML trae el valor final (para quien no tenga JS); aquí se reinicia a 0 para animarlo
+      counters.forEach((el) => { el.textContent = '0'; });
+
       const counterObserver = new IntersectionObserver(
         (entries, observer) => {
           entries.forEach((entry) => {
@@ -177,12 +198,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const tiltCards = document.querySelectorAll('[data-tilt]');
 
   if (tiltCards.length && !prefersReduced && window.matchMedia('(hover: hover)').matches) {
-    const MAX_TILT = 6; // grados
+    const MAX_TILT = 4; // grados (sutil: las tarjetas son grandes)
 
     tiltCards.forEach((card) => {
       let rafId = null;
 
       const handleMove = (e) => {
+        // No inclinar tarjetas que aún no se han revelado (siguen con opacity 0)
+        if (card.hasAttribute('data-reveal') && !card.classList.contains('is-visible')) return;
+
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -193,8 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (rafId) cancelAnimationFrame(rafId);
         rafId = requestAnimationFrame(() => {
+          // translateY(-4px) = "lift" al hacer hover (antes lo hacía hover:-translate-y-1 de Tailwind y chocaba con este transform)
           card.style.transform =
-            `perspective(900px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg)`;
+            `perspective(900px) translateY(-4px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg)`;
           card.style.setProperty('--mx', `${x}px`);
           card.style.setProperty('--my', `${y}px`);
         });
@@ -234,6 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
         top: 0,
         behavior: prefersReduced ? 'auto' : 'smooth',
       });
+      // El botón se oculta al llegar arriba: movemos el foco al logo para no perderlo
+      document.querySelector('#site-header a')?.focus({ preventScroll: true });
     });
   }
 
@@ -246,6 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.forEach((link) => {
     const href = link.getAttribute('href');
     if (!href || href === '#' || href === '') return;
+    // El skip-link usa el salto nativo para que el foco del teclado siga al destino
+    if (link.classList.contains('ds-skip-link')) return;
 
     link.addEventListener('click', (e) => {
       const target = document.querySelector(href);
@@ -257,10 +286,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Active link (subrayado dinámico en nav desktop)
-  if (navLinks.length && 'IntersectionObserver' in window) {
+  // Enlace activo: solo los enlaces del header (desktop + móvil), no CTAs ni footer (corrige A3)
+  const headerLinks = document.querySelectorAll('#site-header a[href^="#"]');
+
+  if (headerLinks.length && 'IntersectionObserver' in window) {
     const sectionMap = new Map();
-    navLinks.forEach((link) => {
+    headerLinks.forEach((link) => {
       const id = link.getAttribute('href');
       if (!id || !id.startsWith('#') || id === '#') return;
       const section = document.querySelector(id);
@@ -277,9 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!links) return;
           links.forEach((link) => {
             if (entry.isIntersecting) {
-              link.classList.add('text-brand-700', 'font-semibold');
+              link.classList.add('is-active');
+              link.setAttribute('aria-current', 'true');
             } else {
-              link.classList.remove('text-brand-700', 'font-semibold');
+              link.classList.remove('is-active');
+              link.removeAttribute('aria-current');
             }
           });
         });
